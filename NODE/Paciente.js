@@ -1,6 +1,6 @@
 class Paciente{
-    Id;
-    Nombre;
+    IdPaciente;
+    NombrePaciente;
     Apellido;
     FechaNacimiento;
     Sexo;

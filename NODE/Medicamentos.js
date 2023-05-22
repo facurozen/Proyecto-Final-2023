@@ -1,5 +1,5 @@
 class Medicamentos{
-    Id;
-    Nombre;
+    IdMedicamento;
+    NombreMedicamento;
 }
 export default Medicamentos;
