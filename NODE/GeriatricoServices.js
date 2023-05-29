@@ -8,7 +8,7 @@ class GeriatricoServices{
         try{
             let pool = await sql.connect(config);
             let result = await pool.request()
-                                    .query('SELECT * FROM MedicamentoATomar inner join Paciente on Paciente.IdPaciente= MedicamentoATomar.IdPaciente inner join Medicamentos on Medicamentos.IdMedicamentos=MedicamentoATomar.IdMedicamento');
+                                    .query('Select M.IdMedicamento, M.NombreMedicamento,MedicamentoATomar.TomoMedicacion from Medicamentos M inner join MedicamentoATomar MT on MT.IdMedicamento=M.IdMedicamento');
             return result.recordsets[0];
         }
         catch(error){
@@ -22,7 +22,7 @@ class GeriatricoServices{
             let pool = await sql.connect(config);
             let result = await pool.request()
                                     .input("pId", sql.Int, Id)
-                                    .query('SELECT MT.FechaHora, MT.TomoMedicacion, Medicamentos.NombreMedicamento FROM MedicamentoATomar MT inner join Paciente on Paciente.IdPaciente= MT.IdPaciente inner join Medicamentos Medicamentos.IdMedicamentos=MT.IdMedicamento WHERE Paciente.IdPaciente = @pId ');
+                                    .query(' Select M.IdMedicamento, M.NombreMedicamento,MT.TomoMedicacion, MT.FechaHora from Medicamentos M inner join MedicamentoATomar MT on MT.IdMedicamento=M.IdMedicamento inner join Paciente P on P.IdPaciente=MT.IdPaciente where P.IdPaciente=@pId');
             return result.recordsets[0];
         }
         catch(error){

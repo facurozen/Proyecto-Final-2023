@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
+import Form from 'react-bootstrap/Form';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -20,16 +21,16 @@ function App() {
     }
     obtenerMedicamentosATomar()
   }, []);
-  
   return (
+    
     <div className="App">
       <Button variant="primary" onClick={handleShow}>
         Medicamentos semanales
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Medicamentos</Modal.Title>
+      <Modal className='modal1' show={show} onHide={handleClose}>
+        <Modal.Header>
+          <Modal.Title className='tituloModal'> {'<  '} Hoy {'  >'}</Modal.Title>
         </Modal.Header>
         <Modal.Body><Table bordered>
       <thead>
@@ -42,10 +43,23 @@ function App() {
       <tbody>
         {
           medicamentoATomar.map((med) => {
+            const fecha = new Date(med.FechaHora);
+            var hora=fecha.getUTCHours();
             return (<tr>
-            <td> {med.FechaHora}</td>
+            <td>{hora}</td>
             <td>{med.NombreMedicamento}</td>
-            <td>{med.TomoMedicacion}</td>
+            <td> <Form>
+                  {['radio'].map((type) => (
+                    <div key={`default-${type}`} className="mb-3">
+                      <Form.Check 
+                        type={type}
+                        checked={med.TomoMedicacion}
+                        id={`default-${type}`}
+                        label={``}
+                      />
+                    </div>
+                  ))}
+                </Form></td>
             </tr>
             )
           })
