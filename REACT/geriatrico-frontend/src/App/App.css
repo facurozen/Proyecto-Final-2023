@@ -43,3 +43,35 @@
 .modal1{
   margin-top: 20%;
 }
+.navbar-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.navbar-nav {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.nav-item {
+  margin: 0 10px;
+}
+
+.nav-link {
+  text-decoration: none;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+}

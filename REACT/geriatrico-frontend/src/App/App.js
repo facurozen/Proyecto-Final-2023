@@ -5,6 +5,11 @@ import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
+import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
+import logoHome from '../images/home.png';
+import logoCalendar from '../images/calendar.PNG';
+import logoVisitas from '../images/visitas.PNG';
+import logoPerfil from '../images/perfil.PNG';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -22,8 +27,8 @@ function App() {
     obtenerMedicamentosATomar()
   }, []);
   return (
-    
-    <div className="App">
+    <Router>
+      <div className="App">
       <Button variant="primary" onClick={handleShow}>
         Medicamentos semanales
       </Button>
@@ -33,6 +38,7 @@ function App() {
           <Modal.Title className='tituloModal'> {'<  '} Hoy {'  >'}</Modal.Title>
         </Modal.Header>
         <Modal.Body><Table bordered>
+          
       <thead>
         <tr>
           <th>Hora</th>
@@ -67,7 +73,50 @@ function App() {
       </tbody>
     </Table></Modal.Body>
       </Modal>
-      </div>
+      <nav className="navbar navbar-container">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link to="/" className="nav-link">
+                <img src={logoHome} alt="Home" className="logo" />
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/calendar" className="nav-link">
+                <img src={logoCalendar} alt="Calendar" className="logo" />
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/visitas" className="nav-link">
+                <img src={logoVisitas} alt="Visitas" className="logo" />
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/perfil" className="nav-link">
+                <img src={logoPerfil} alt="Perfil" className="logo" />
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route exact path="/">
+            {/* Contenido para la página de inicio */}
+          </Route>
+          <Route path="/calendar">
+            {/* Contenido para la página de calendar */}
+          </Route>
+          <Route path="/visitas">
+            {/* Contenido para la página de visitas */}
+          </Route>
+          <Route path="/perfil">
+            {/* Contenido para la página de perfil */}
+          </Route>
+        </Routes>
+        </div>
+    </Router>
+    
+
+      
   );
 }
 
