@@ -29,6 +29,20 @@ class GeriatricoServices{
             console.log(error);
         }
     }
+    static getHistoriaClinica = async (Id) =>{
+        let returnEntity = null;
+        console.log('Estoy en: GeriatricoServices.GetHC(Id)',Id);
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .input("pId", sql.Int, Id)
+                                    .query('Select H.* from HistoriaClinica H inner join Paciente P on H.IdPaciente = P.IdPaciente where H.IdPaciente=@pId ASC');
+            return result.recordsets[0];
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
 }
 
 export default GeriatricoServices

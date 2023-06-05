@@ -21,6 +21,11 @@ app.get('/MedicamentoATomar/:Id',async(req,res)=>{
     res.status(200).send(MedicamentoATomar)
 })
 
+app.get('/HistoriaClinica/:Id',async(req,res)=>{
+    const HistoriaClinica = await GeriatricoServices.getHistoriaClinica(req.params.Id)
+    res.status(200).send(HistoriaClinica)
+})
+
 
 app.listen(port, () =>
 {
