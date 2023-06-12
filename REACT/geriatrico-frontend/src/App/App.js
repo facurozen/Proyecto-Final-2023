@@ -6,16 +6,22 @@ import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
-import logoHome from '../images/home.png';
-import logoCalendar from '../images/calendar.PNG';
-import logoVisitas from '../images/visitas.PNG';
-import logoPerfil from '../images/perfil.PNG';
+import logoPersona from '../images/jose.jpeg';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
+import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import BotonPerfilMedico from '../BotonPerfilMedico/BotonPerfilMedico';
 
 function App() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true); 
   const [medicamentoATomar, setMedicamentosATomar] = useState([]);
+  const [value, setValue] = React.useState(0);
+
 
   useEffect(() => {
     const obtenerMedicamentosATomar = async () =>{
@@ -27,18 +33,21 @@ function App() {
     obtenerMedicamentosATomar()
   }, []);
   return (
-    <Router>
       <div className="App">
+      <div className="square">
+        <img src={logoPersona} alt="Foto de perfil" className="profile-image" />
+        <div className="name">José Lopez</div>
+      </div>
       <Button variant="primary" onClick={handleShow}>
         Medicamentos semanales
       </Button>
 
+      <BotonPerfilMedico/>
       <Modal className='modal1' show={show} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title className='tituloModal'> {'<  '} Hoy {'  >'}</Modal.Title>
         </Modal.Header>
         <Modal.Body><Table bordered>
-          
       <thead>
         <tr>
           <th>Hora</th>
@@ -73,47 +82,20 @@ function App() {
       </tbody>
     </Table></Modal.Body>
       </Modal>
-      <nav className="navbar navbar-container">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link to="/" className="nav-link">
-                <img src={logoHome} alt="Home" className="logo" />
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/calendar" className="nav-link">
-                <img src={logoCalendar} alt="Calendar" className="logo" />
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/visitas" className="nav-link">
-                <img src={logoVisitas} alt="Visitas" className="logo" />
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/perfil" className="nav-link">
-                <img src={logoPerfil} alt="Perfil" className="logo" />
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Routes>
-          <Route exact path="/">
-            {/* Contenido para la página de inicio */}
-          </Route>
-          <Route path="/calendar">
-            {/* Contenido para la página de calendar */}
-          </Route>
-          <Route path="/visitas">
-            {/* Contenido para la página de visitas */}
-          </Route>
-          <Route path="/perfil">
-            {/* Contenido para la página de perfil */}
-          </Route>
-        </Routes>
+        <BottomNavigation className="logos"
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        >
+          <BottomNavigationAction label="Home" icon={<HomeRoundedIcon />} />
+          <BottomNavigationAction label="Calendario" icon={<CalendarMonthRoundedIcon />} />
+          <BottomNavigationAction label="Visitas" icon={<PeopleRoundedIcon />} />
+          <BottomNavigationAction label="Perfil" icon={<PersonRoundedIcon />} />
+        </BottomNavigation>
         </div>
-    </Router>
+
     
 
       

@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  padding-bottom: 60px;
+  position: relative;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -43,35 +46,35 @@
 .modal1{
   margin-top: 20%;
 }
-.navbar-container {
+.square {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
-  background-color: red;
+  height: 46vh; /* La mitad superior de la pantalla */
+  background-color: #f7374a;
+  border-radius: 20px; /* Agrega bordes curvos */
+  z-index: -1; /* Envía el cuadrado al fondo */
   display: flex;
-  justify-content: center;
-  padding: 10px;
-}
-
-.navbar-nav {
-  list-style: none;
-  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 0;
-  justify-content: space-around;
-  width: 100%;
+  justify-content: center;
 }
 
-.nav-item {
-  margin: 0 10px;
+.profile-image {
+  width: 100px; /* Ajusta el tamaño de la imagen */
+  height: 100px;
+  border-radius: 20%;
+  object-fit: cover;
 }
 
-.nav-link {
-  text-decoration: none;
+.name {
+  margin-top: 10px;
+  color: white;
+  font-size: 24px;
+  font-weight:bold;
+  font-family: 'Titillium Web', sans-serif;
 }
-
-.logo {
-  width: 30px;
-  height: 30px;
+.logos{
+  margin-top: 180%;
 }
