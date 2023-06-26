@@ -3,6 +3,10 @@
   padding-bottom: 60px;
   position: relative;
   min-height: 100vh;
+  height: 100vh; 
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -76,5 +80,26 @@
   font-family: 'Titillium Web', sans-serif;
 }
 .logos{
-  margin-top: 180%;
+  margin-top: 12%;
+}
+
+.Rounded-Rectangle {
+  width: 326px;
+  height: 438px;
+  margin: 300px 31px 41px 33px;
+  padding: 51px 13px 45px 11px;
+  border-radius: 20px;
+  box-shadow: 0 0 12px 0 rgba(11, 12, 26, 0.1);
+  background-color: #fff;
+}
+.SeguimientoSemanal {
+  width: 137px;
+  height: 22px;
+  margin-left: 0px;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.28px;
+  text-align: left;
+  color: #0b0c1a;
 }

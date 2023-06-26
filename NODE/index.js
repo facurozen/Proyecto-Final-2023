@@ -12,7 +12,7 @@ app.use(express.json());
 
 
 app.get('/MedicamentoATomar',async(req,res)=>{
-    const datos = await GeriatricoServices.getAll()
+    const datos = await GeriatricoServices.getAllMedicamentosATomar()
     res.status(200).send(datos)
 })
 
@@ -24,6 +24,11 @@ app.get('/MedicamentoATomar/:Id',async(req,res)=>{
 app.get('/HistoriaClinica/:Id',async(req,res)=>{
     const HistoriaClinica = await GeriatricoServices.getHistoriaClinica(req.params.Id)
     res.status(200).send(HistoriaClinica)
+})
+
+app.get('/getAll/:Id',async(req,res)=>{
+    const datos = await GeriatricoServices.getAll(req.params.Id)
+    res.status(200).send(datos)
 })
 
 

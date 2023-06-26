@@ -1,0 +1,23 @@
+
+  .icon {
+    width: 51.7px;
+    height: 51.7px;
+    flex-grow: 0;
+    margin: 0 19.3px 4.3px 9px;
+  }
+  .-sp-H2-Titillium-Web {
+    width: 80px;
+    height: 19px;
+    align-self: flex-start;
+    flex-grow: 0;
+    margin: 4.3px 0 0;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.24px;
+    text-align: left;
+    color: #616164;
+  }

@@ -1,0 +1,26 @@
+.Rectangle-27 {
+    /*width: 142px;
+    height: 138px;
+    margin: 17px 17px 0 0;
+    padding: 33px 24px 30px 38px;*/
+    border-radius: 20px;
+    box-shadow: 0 0 12px 0 rgba(11, 12, 26, 0.05);
+    background-color: #fff;
+  }
+  
+  .-sp-H2-Titillium-Web {
+    width: 80px;
+    height: 19px;
+    align-self: flex-start;
+    flex-grow: 0;
+    margin: 4.3px 0 0;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.24px;
+    text-align: left;
+    color: #616164;
+  }
