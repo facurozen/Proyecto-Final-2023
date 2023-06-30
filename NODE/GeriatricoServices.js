@@ -36,7 +36,7 @@ class GeriatricoServices{
             let pool = await sql.connect(config);
             let result = await pool.request()
                                     .input("pId", sql.Int, Id)
-                                    .query('Select H.* from HistoriaClinica H inner join Paciente P on H.IdPaciente = P.IdPaciente where H.IdPaciente=@pId ASC');
+                                    .query('Select H.* from HistoriaClinica H inner join Paciente P on H.IdPaciente = P.IdPaciente where H.IdPaciente=@pId');
             return result.recordsets[0];
         }
         catch(error){

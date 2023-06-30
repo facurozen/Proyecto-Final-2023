@@ -17,10 +17,8 @@ import Col from 'react-bootstrap/Col';
 
 
 function App() {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true); 
   const [medicamentoATomar, setMedicamentosATomar] = useState([]);
+  const [historiaClinica, sethistoriaClinica] = useState([]);
   const [value, setValue] = React.useState(0);
 
   useEffect(() => {
@@ -28,9 +26,19 @@ function App() {
       const url = 'http://localhost:5000/MedicamentoATomar/1';
       const result = await axios.get(url);
       setMedicamentosATomar(result.data);
-      console.log(result.data);
     }
     obtenerMedicamentosATomar()
+  }, []);
+
+  useEffect(() => {
+    const obtenerHistoria = async () =>{
+      const url = 'http://localhost:5000/HistoriaClinica/1';
+      axios.get(url)
+      .then(res => {
+        sethistoriaClinica(res.data);
+      })
+    }
+    obtenerHistoria()
   }, []);
   return (
       <div className="App">
@@ -39,8 +47,8 @@ function App() {
         <div className="name">José Lopez</div>
       </div>
 
-      <div class="Rounded-Rectangle">
-      <span class="SeguimientoSemanal">
+      <div className="Rounded-Rectangle">
+      <span className="SeguimientoSemanal">
         Seguimiento semanal
       </span>
       <Row>
@@ -48,7 +56,7 @@ function App() {
         <Col><BotonMedicamentos medicamentoATomar={medicamentoATomar} /></Col>
       </Row>
       <Row>
-        <Col><BotonHistoria /></Col>
+        <Col><BotonHistoria historiaClinica={historiaClinica}/></Col>
         <Col><BotonKinesio/></Col>
       </Row>
      </div>

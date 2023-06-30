@@ -26,7 +26,7 @@ app.get('/HistoriaClinica/:Id',async(req,res)=>{
     res.status(200).send(HistoriaClinica)
 })
 
-app.get('/getAll/:Id',async(req,res)=>{
+app.get('/GetAll/:Id',async(req,res)=>{
     const datos = await GeriatricoServices.getAll(req.params.Id)
     res.status(200).send(datos)
 })
