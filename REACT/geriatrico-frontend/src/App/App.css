@@ -83,6 +83,7 @@
   margin-top: 12%;
 }
 
+
 .Rounded-Rectangle {
   width: 326px;
   height: 438px;
@@ -93,13 +94,14 @@
   background-color: #fff;
 }
 .SeguimientoSemanal {
-  width: 137px;
-  height: 22px;
-  margin-left: 0px;
+  display: flex; 
+  justify-content: flex-start;
   font-family: 'Titillium Web', sans-serif;
   font-size: 14px;
   font-weight: bold;
-  letter-spacing: 0.28px;
-  text-align: left;
   color: #0b0c1a;
+  margin-bottom: 7%;
+  margin-right: 2%;
+  margin-left: 5%;
 }
+

@@ -48,9 +48,12 @@ function App() {
       </div>
 
       <div className="Rounded-Rectangle">
-      <span className="SeguimientoSemanal">
-        Seguimiento semanal
-      </span>
+        <div className = "SeguimientoSemanal" >     
+           <span>
+            Seguimiento semanal
+           </span>
+        </div>
+
       <Row>
         <Col><BotonInforme/></Col>
         <Col><BotonMedicamentos medicamentoATomar={medicamentoATomar} /></Col>
