@@ -88,7 +88,7 @@
   width: 326px;
   height: 438px;
   margin: 300px 31px 41px 33px;
-  padding: 51px 13px 45px 11px;
+  padding: 23px 13px 45px 11px;
   border-radius: 20px;
   box-shadow: 0 0 12px 0 rgba(11, 12, 26, 0.1);
   background-color: #fff;
@@ -104,4 +104,58 @@
   margin-right: 2%;
   margin-left: 5%;
 }
-
+.fechas{
+  font-weight: bold;
+}
+.SegmentedPicker {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items:center;
+  padding: 2px;
+  border-radius: 8.9px;
+  background-color: rgba(118, 118, 128, 0.12);
+}
+._SegmentedPicker-option {
+  align-self: stretch;
+  flex-grow: 1;
+}
+.Actividades {
+  width: 117px;
+  height: 20.7px;
+  flex-grow: 0;
+  margin: 65.6px 67px 0 37.3px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 10px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000;
+}
+._SegmentedPicker-option2 {
+  align-self: stretch;
+  flex-grow: 1;
+  border-radius: 6.9px;
+  box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.04), 0 3px 8px 0 rgba(0, 0, 0, 0.12);
+  border: solid 0.5px rgba(0, 0, 0, 0.04);
+  background-color: #fff;
+}
+.Informe {
+  width: 88.7px;
+  height: 20.7px;
+  flex-grow: 0;
+  margin: 65.6px 37.3px 0 50px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000;
+}

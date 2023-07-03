@@ -7,6 +7,7 @@ import icono from './pills.svg';
 
 function BotonMedicamentos({ medicamentoATomar }) {
   const [show, setShow] = useState(false);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -45,26 +46,26 @@ function BotonMedicamentos({ medicamentoATomar }) {
   return (
     <>
       <div className="Rectangle-27" onClick={handleShow}>
-        <Modal className="modal1" show={show} onHide={handleClose} backdrop="static">
-          <Modal.Header closeButton>
-            <Modal.Title className="tituloModal"> {'<  '} Hoy {'  >'}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Table bordered>
-              <thead>
-                <tr>
-                  <th>Hora</th>
-                  <th>Medicamento</th>
-                  <th></th>
-                </tr>
-              </thead>
-              {renderMedicamentos()}
-            </Table>
-          </Modal.Body>
-        </Modal>
-        <img className="icon" src={icono} alt="icono"/>
+        <img className="icon" src={icono} alt="icono" />
         <span className="-sp-H2-Titillium-Web">Medicamentos diarios</span>
       </div>
+      <Modal className="modal1" show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="tituloModal2"> {'<  '} Hoy {'  >'}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Table bordered>
+            <thead>
+              <tr>
+                <th>Hora</th>
+                <th>Medicamento</th>
+                <th></th>
+              </tr>
+            </thead>
+            {renderMedicamentos()}
+          </Table>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }
