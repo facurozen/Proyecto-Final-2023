@@ -31,6 +31,15 @@ app.get('/GetAll/:Id',async(req,res)=>{
     res.status(200).send(datos)
 })
 
+app.get('/Informe/:Id',async(req,res)=>{
+    const Informe = await GeriatricoServices.getInforme(req.params.Id)
+    res.status(200).send(Informe)
+})
+app.get('/Kinesiologia/:Id',async(req,res)=>{
+    const Kinesiologia = await GeriatricoServices.getKinesiologia(req.params.Id)
+    res.status(200).send(Kinesiologia)
+})
+
 
 app.listen(port, () =>
 {

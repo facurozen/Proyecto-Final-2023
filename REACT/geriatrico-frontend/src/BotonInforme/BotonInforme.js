@@ -11,11 +11,10 @@ function BotonInforme({ informe }) {
 
   const renderInforme = () => {
     if (Array.isArray(informe)) {
-      return informe.map((inf) => {  
-          <div className='fechas'>
-            <p> hola </p>
-          </div>
-        
+      return informe.map((hist) => {
+        return (
+          <></>
+        )
       });
     }
     return null;

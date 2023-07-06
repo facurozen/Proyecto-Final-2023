@@ -45,7 +45,7 @@ function App() {
 
    useEffect(() => {
     const obtenerInforme = async () => {
-      const url = 'http://localhost:5000/HistoriaClinica/1';
+      const url = 'http://localhost:5000/Informe/1';
       axios.get(url)
         .then(res => {
           setInforme(res.data);
@@ -56,7 +56,7 @@ function App() {
 
   useEffect(() => {
     const obtenerKinesiologia = async () => {
-      const url = 'http://localhost:5000/HistoriaClinica/1';
+      const url = 'http://localhost:5000/Kinesiologia/1';
       axios.get(url)
         .then(res => {
           setKinesiologia(res.data);

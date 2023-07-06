@@ -58,6 +58,34 @@ class GeriatricoServices{
             console.log(error);
         }
     }
+    static getInforme = async (Id) =>{
+        let returnEntity = null;
+        console.log('Estoy en: GeriatricoServices.GetInforme(Id)',Id);
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .input("pId", sql.Int, Id)
+                                    .query('Select Top 1 I.* from Informe I inner join Paciente P on I.IdPaciente = P.IdPaciente where I.IdPaciente=@pId order by I.Fecha Desc');
+            return result.recordsets[0];
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+    static getKinesiologia = async (Id) =>{
+        let returnEntity = null;
+        console.log('Estoy en: GeriatricoServices.GetKinesiologia(Id)',Id);
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .input("pId", sql.Int, Id)
+                                    .query('Select Top 1 K.* from Kinesiologia K inner join Paciente P on K.IdPaciente = P.IdPaciente where K.IdPaciente=@pId order by K.FechaHoy Desc');
+            return result.recordsets[0];
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
 }
 
 export default GeriatricoServices
