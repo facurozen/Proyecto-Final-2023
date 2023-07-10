@@ -14,4 +14,14 @@
     text-align: left;
     color: #616164;
   }
- 
+.textoInforme{
+  margin: 5.7px 20.1px 23px 13px;
+  font-size: 18px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000;
+}

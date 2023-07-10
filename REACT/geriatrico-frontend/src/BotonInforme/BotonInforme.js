@@ -11,9 +11,9 @@ function BotonInforme({ informe }) {
 
   const renderInforme = () => {
     if (Array.isArray(informe)) {
-      return informe.map((hist) => {
+      return informe.map((inf) => {
         return (
-          <></>
+          <p class="textoInforme">{inf.Texto}</p>
         )
       });
     }
@@ -30,10 +30,10 @@ function BotonInforme({ informe }) {
       </div>
       <Modal className="modal1" show={show} onHide={handleClose} >
         <Modal.Header closeButton>
-          <Modal.Title className="tituloModal"> Informe</Modal.Title>
+          <Modal.Title className="tituloInforme">Informe</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {renderInforme()};
+          {renderInforme()}
         </Modal.Body>
       </Modal>
     </>

@@ -21,7 +21,7 @@ function BotonHistoria({ historiaClinica }) {
         const ano = fecha.getUTCFullYear();
         return (
           <div className='fechas'>
-            <p> {dia}/{mes}/{ano}: {hist.Texto}</p>
+            <p class="textoHist"> {dia}/{mes}/{ano}: {hist.Texto}</p>
           </div>
         )
       });
@@ -40,7 +40,7 @@ function BotonHistoria({ historiaClinica }) {
           <Modal.Title className="tituloModal"> Historia Clinica</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {renderHistoria()};
+          {renderHistoria()}
         </Modal.Body>
       </Modal>
     </>
