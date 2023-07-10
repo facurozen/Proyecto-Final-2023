@@ -1,4 +1,5 @@
 import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import logoPersona from '../images/jose.jpeg';
@@ -8,6 +9,7 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import Perfil from '../Perfil/Perfil';
 import BotonInforme from '../BotonInforme/BotonInforme';
 import BotonMedicamentos from '../BotonMedicamentos/BotonMediamentos';
 import BotonHistoria from '../BotonHistoria/BotonHistoria';
@@ -43,7 +45,7 @@ function App() {
     obtenerHistoria()
   }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     const obtenerInforme = async () => {
       const url = 'http://localhost:5000/Informe/1';
       axios.get(url)
@@ -64,42 +66,15 @@ function App() {
     }
     obtenerKinesiologia()
   }, []);
-  return (
-    <div className="App">
-      <div className="square">
-        <img src={logoPersona} alt="Foto de perfil" className="profile-image" />
-        <div className="name">José Lopez</div>
-      </div>
+  return (  
+  <div className="App">
+    <BrowserRouter>
+          <Routes>
+          <Route path="/perfil" element={<Perfil/>}></Route>
+          </Routes>
+    </BrowserRouter>
 
-      <div className="Rounded-Rectangle">
-        <div class="SegmentedPicker">
-          <div class="_SegmentedPicker-option2">
-            <span class="Informe">
-              Informe
-            </span>
-          </div>
-          <div class="_SegmentedPicker-option">
-            <span class="Actividades">
-              Actividades
-            </span>
-          </div>
-          
-        </div>
-        <div className="SeguimientoSemanal" >
-          <span>
-            Seguimiento semanal
-          </span>
-        </div>
 
-        <Row>
-          <Col><BotonInforme informe={informe} /></Col>
-          <Col><BotonMedicamentos medicamentoATomar={medicamentoATomar} /></Col>
-        </Row>
-        <Row>
-          <Col><BotonHistoria historiaClinica={historiaClinica} /></Col>
-          <Col><BotonKinesio kinesiologia={kinesiologia} /></Col>
-        </Row>
-      </div>
       <BottomNavigation className="logos"
         showLabels
         value={value}
