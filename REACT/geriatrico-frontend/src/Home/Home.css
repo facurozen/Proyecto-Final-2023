@@ -1,0 +1,22 @@
+.Rectangle-63 {
+    width: 135px;
+    height: 83px;
+    margin: 16px 33px 14px 43px;
+    border-radius: 20px;
+    background-color: #d9d9d9;
+  }
+
+  .Fechas-relevantes {
+    width: 162px;
+    height: 13px;
+    margin: 10px 0 16px 49px;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+  }

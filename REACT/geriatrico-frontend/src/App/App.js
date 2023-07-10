@@ -10,12 +10,8 @@ import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import Perfil from '../Perfil/Perfil';
-import BotonInforme from '../BotonInforme/BotonInforme';
-import BotonMedicamentos from '../BotonMedicamentos/BotonMediamentos';
-import BotonHistoria from '../BotonHistoria/BotonHistoria';
-import BotonKinesio from '../BotonKinesio/BotonKinesio';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Home from '../Home/Home';
+
 
 
 function App() {
@@ -66,15 +62,14 @@ function App() {
     }
     obtenerKinesiologia()
   }, []);
-  return (  
-  <div className="App">
-    <BrowserRouter>
-          <Routes>
-          <Route path="/perfil" element={<Perfil/>}></Route>
-          </Routes>
-    </BrowserRouter>
-
-
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/perfil" element={<Perfil informe={informe} medicamentoATomar={medicamentoATomar} historiaClinica={historiaClinica} kinesiologia={kinesiologia} />} />
+          <Route path="/home" element={<Home />}></Route>
+        </Routes>
+      </BrowserRouter>
       <BottomNavigation className="logos"
         showLabels
         value={value}

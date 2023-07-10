@@ -9,9 +9,10 @@ import BotonMedicamentos from '../BotonMedicamentos/BotonMediamentos';
 import BotonHistoria from '../BotonHistoria/BotonHistoria';
 import BotonKinesio from '../BotonKinesio/BotonKinesio';
 
-function Perfil({informe, medicamentoATomar, historiaClinica, kinesiologia }) {
-    <> 
-    <div className="square">
+function Perfil({ informe, medicamentoATomar, historiaClinica, kinesiologia }) {
+  return (
+    <>
+      <div className="square">
         <img src={logoPersona} alt="Foto de perfil" className="profile-image" />
         <div className="name">José Lopez</div>
       </div>
@@ -28,7 +29,7 @@ function Perfil({informe, medicamentoATomar, historiaClinica, kinesiologia }) {
               Actividades
             </span>
           </div>
-          
+
         </div>
         <div className="SeguimientoSemanal" >
           <span>
@@ -45,7 +46,7 @@ function Perfil({informe, medicamentoATomar, historiaClinica, kinesiologia }) {
           <Col><BotonKinesio kinesiologia={kinesiologia} /></Col>
         </Row>
       </div>
-
-</>
+    </>
+  );
 }
 export default Perfil;
