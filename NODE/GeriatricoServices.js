@@ -65,7 +65,7 @@ class GeriatricoServices{
             let pool = await sql.connect(config);
             let result = await pool.request()
                                     .input("pId", sql.Int, Id)
-                                    .query('Select Top 1 I.* from Informe I inner join Paciente P on I.IdPaciente = P.IdPaciente where I.IdPaciente=@pId order by I.Fecha Desc');
+                                    .query('Select Top 1 I.* from Informe I inner join Paciente P on I.IdPaciente = P.IdPaciente where I.IdPaciente=@pId order by I.FechaHoy Desc');
             return result.recordsets[0];
         }
         catch(error){
