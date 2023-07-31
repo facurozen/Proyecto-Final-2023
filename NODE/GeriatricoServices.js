@@ -86,6 +86,19 @@ class GeriatricoServices{
             console.log(error);
         }
     }
+    static getFechasRelevantes = async () =>{
+        let returnEntity = null;
+        console.log('Estoy en: GeriatricoServices.getFechasRelevantes()');
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .query('Select * from FechasRelevantes order by Fecha Asc');
+            return result.recordsets[0];
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
 }
 
 export default GeriatricoServices

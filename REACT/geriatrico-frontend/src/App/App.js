@@ -19,6 +19,7 @@ function App() {
   const [historiaClinica, sethistoriaClinica] = useState([]);
   const [informe, setInforme] = useState([]);
   const [kinesiologia, setKinesiologia] = useState([]);
+  const [fechasRelevantes, setFechasRelevantes] = useState([]);
   const [value, setValue] = React.useState(0);
 
   useEffect(() => {
@@ -62,14 +63,25 @@ function App() {
     }
     obtenerKinesiologia()
   }, []);
+
+  useEffect(() => {
+    const obtenerFechasRelevantes = async () => {
+      const url = 'http://localhost:5000/FechasRelevantes';
+      axios.get(url)
+        .then(res => {
+          setFechasRelevantes(res.data);
+        })
+    }
+    obtenerFechasRelevantes()
+  }, []);
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/perfil" element={<Perfil informe={informe} medicamentoATomar={medicamentoATomar} historiaClinica={historiaClinica} kinesiologia={kinesiologia} />} />
-          <Route path="/home" element={<Home />}></Route>
+          <Route path="/home" element={<Home fechasRelevantes={fechasRelevantes} />}></Route>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter>{/*
       <BottomNavigation className="logos"
         showLabels
         value={value}
@@ -81,7 +93,7 @@ function App() {
         <BottomNavigationAction label="Calendario" icon={<CalendarMonthRoundedIcon />} />
         <BottomNavigationAction label="Visitas" icon={<PeopleRoundedIcon />} />
         <BottomNavigationAction label="Perfil" icon={<PersonRoundedIcon />} />
-      </BottomNavigation>
+      </BottomNavigation>*/}
     </div>
   );
 }

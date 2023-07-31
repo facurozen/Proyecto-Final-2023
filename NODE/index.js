@@ -39,6 +39,10 @@ app.get('/Kinesiologia/:Id',async(req,res)=>{
     const Kinesiologia = await GeriatricoServices.getKinesiologia(req.params.Id)
     res.status(200).send(Kinesiologia)
 })
+app.get('/FechasRelevantes',async(req,res)=>{
+    const FechasRelevantes = await GeriatricoServices.getFechasRelevantes()
+    res.status(200).send(FechasRelevantes)
+})
 
 
 app.listen(port, () =>

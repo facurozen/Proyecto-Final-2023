@@ -1,43 +1,51 @@
-.Rectangle-63 {
-    width: 135px;
-    height: 83px;
-    border-radius: 20px;
-    background-color: #d9d9d9;
-  }
+.Titulo-Fechas-relevantes {
+  width: 162px;
+  height: 13px;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000;
+}
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .Rectangle-64 {
-    width: 135px;
-    height: 83px;
-    border-radius: 20px;
-    background-color: #d9d9d9;
-  }
+.logo {
+  width: 85px;
+  height: 73px;
+  margin-top: 14.5%;
+  margin-bottom: 20px;
+}
+.menu{
+  width: 112px;
+  height: 94px;
+}
 
-  .Rectangle-65 {
-    width: 135px;
-    height: 83px;
-    border-radius: 20px;
-    background-color: #d9d9d9;
-  }
+.menu-semanal-rectangulo {
+  
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  width: 361px;
+  height: 117px;
+  margin: 61px 14px 112px 15px;
+  padding: 10px 16px 10px 127px;
+  border-radius: 20px;
+  background-color: #ded9d9;
+}
 
-  .Rectangle-66 {
-    width: 135px;
-    height: 83px;
-    border-radius: 20px;
-    background-color: #d9d9d9;
-  }
+.menu-semanal-rectangulo h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
 
-
-  .Fechas-relevantes {
-    width: 162px;
-    height: 13px;
-    margin: 10px 0 16px 49px;
-    font-family: Inter;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #000;
-  }
+.menu-semanal-rectangulo p {
+  font-size: 16px;
+}

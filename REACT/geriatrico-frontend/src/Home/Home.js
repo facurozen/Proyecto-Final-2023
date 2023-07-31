@@ -1,32 +1,42 @@
-import React, { useState } from 'react';
-import './Home.css';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import React from "react";
+import "./Home.css";
+import { Container, Row, Col } from "react-bootstrap";
+import Fecha from "../Fecha/Fecha";
+import logo from "../images/logo.png";
+import menu from "../images/comida.jpg";
 
+function Home({ fechasRelevantes }) {
+  // Dividir el arreglo de fechas en dos partes
+  const mitad = Math.ceil(fechasRelevantes.length / 2);
+  const primeraMitad = fechasRelevantes.slice(0, mitad);
+  const segundaMitad = fechasRelevantes.slice(mitad);
 
-function Home() {
-    return (
-        <>
-            <span class="Fechas-relevantes">
-                Fechas relevantes
-            </span>
+  return (
+    <div className="home-container">
+      {/* Centrar el logo en la parte superior */}
+      <img alt="" src={logo} className="logo" />
+
+      
+        <span className="Titulo-Fechas-relevantes"> Julio</span>
         <Row>
           <Col>
-          <div class="Rectangle-63"> </div>
+            <Fecha fechasRelevantes={primeraMitad} />
           </Col>
           <Col>
-          <div class="Rectangle-64"> </div>
+            <Fecha fechasRelevantes={segundaMitad} />
           </Col>
         </Row>
-        <Row>
-        <Col>
-          <div class="Rectangle-65"> </div>
-          </Col>
-          <Col>
-          <div class="Rectangle-66"> </div>
-          </Col>
-        </Row>
-        </>
-    );
+
+      {/* Rectángulo en la parte inferior */}
+      <div className="menu-semanal-rectangulo">
+        <img alt="" src={menu} className="menu"/>
+        <h2>Menu Semanal</h2>
+        <p>
+          El menu de esta semana es muy variado, con muchas opciones para elegir.
+        </p>
+      </div>
+    </div>
+  );
 }
+
 export default Home;
