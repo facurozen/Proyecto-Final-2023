@@ -1,0 +1,44 @@
+.calendar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 300px; /* Ancho fijo del calendario */
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 0 20px; /* Agregado un relleno */
+    box-sizing: border-box; /* Asegura que el relleno se incluya en el ancho total */
+  }
+  
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 5px; /* Aumentado el margen entre los días */
+    margin-top: 10px; /* Agregado margen superior */
+  }
+  
+  .day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Cambiado para ocupar todo el ancho de su contenedor */
+    height: 40px;
+    background-color: #e0e0e0;
+    color: #000;
+  }
+  

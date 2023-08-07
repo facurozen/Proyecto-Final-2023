@@ -5,6 +5,7 @@ import axios from 'axios';
 import Home from '../Home/Home';
 import Perfil from '../Perfil/Perfil';
 import AgendaVisitas from '../AgendaVisitas/AgendaVisitas'
+import Calendario from '../Calendario/Calendario';
 
 function App() {
   const [medicamentoATomar, setMedicamentosATomar] = useState([]);
@@ -86,6 +87,7 @@ function App() {
           <Route path="/perfil" element={<Perfil informe={informe} medicamentoATomar={medicamentoATomar} historiaClinica={historiaClinica} kinesiologia={kinesiologia} />} />
           <Route path="/home" element={<Home fechasRelevantes={fechasRelevantes} />}></Route>
           <Route path="/agendaVisitas" element={<AgendaVisitas visitas = {visitas} />}></Route>
+          <Route path="/calendario" element={<Calendario />}></Route>
         </Routes>
       </BrowserRouter>{/*
       <BottomNavigation className="logos"

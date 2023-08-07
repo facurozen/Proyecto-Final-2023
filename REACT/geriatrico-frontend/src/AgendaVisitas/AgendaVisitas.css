@@ -2,8 +2,10 @@
     width: 278px;
     height: 69px;
     flex-grow: 0;
-    margin: 65px 30px 0 9px;
     padding: 0 30.8px 0 0;
+    margin-left: 15%;
+    margin-top: 4%;
+    margin-bottom: 4%;
     border-radius: 8px;
     box-shadow: 0 44px 92px 0 rgba(159, 159, 159, 0.25);
     background-color: #fff;
@@ -23,3 +25,64 @@
     text-align: left;
     color: #000;
   }
+
+  .Agenda-de-visitas {
+    width: 259px;
+    height: 35px;
+    padding: 10px 43px 12px 15px;
+    margin-left: 20%;
+    margin-top: 5%;
+    margin-bottom: 2%;
+    font-family: Inter;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    color: #000;
+  }
+  
+  .horaSalida {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+  }
+  .Wed15-Septemper {
+    margin: 0 41px 0 4px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    font-size: 12px;
+    text-align: center;
+    color: #000;
+  }
+  .Horarios {
+    margin-top: 2%;
+    font-size: 14px;
+    line-height: 1;
+    text-align: left;
+    color: #8d8d8d;
+  }
+  .TimeWrapper {
+    border-top: 1px dashed #ccc;
+    margin: 10px 0;
+    padding-top: 5px;
+  }
+
+  .ButtonWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    
+  }
+  
+  .AgendarButton {
+    border-radius: 13px;
+    background-color: #000;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    width: 90%;
+    height: 50px
+  }
+  
+  
