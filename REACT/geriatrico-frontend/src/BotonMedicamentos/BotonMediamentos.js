@@ -16,21 +16,24 @@ function BotonMedicamentos({ medicamentoATomar }) {
       <tbody>
         {medicamentoATomar.map((med) => {
           const fecha = new Date(med.FechaHora);
-          const hora = fecha.getUTCHours();
+          const hora = fecha.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+          });
 
           return (
             <tr key={med.id}>
-              <td>{hora}</td>
-              <td>{med.NombreMedicamento}</td>
+              <td className="hora-cell">{hora}</td>
+              <td className="medicamento-cell">{med.NombreMedicamento}</td>
               <td>
                 <Form>
                   {['radio'].map((type) => (
                     <div key={`default-${type}`} className="mb-3">
                       <Form.Check
                         type={type}
-                        checked={med.TomoMedicacion}
                         id={`default-${type}`}
-                        label={``}
+                        checked={med.TomoMedicacion}
+                        label=""
                       />
                     </div>
                   ))}
@@ -54,11 +57,13 @@ function BotonMedicamentos({ medicamentoATomar }) {
           <Modal.Title className="tituloModal2"> {'<  '} Hoy {'  >'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Table bordered>
+          <Table className="medicamentos-table">
             <thead>
               <tr>
-                <th>Hora</th>
-                <th>Medicamento</th>
+                <th className="hora-cell">
+                  <span className="hora-title">Hora</span>
+                </th>
+                <th className="medicamento-cell titulo-medicamento">Medicamento</th>
                 <th></th>
               </tr>
             </thead>

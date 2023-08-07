@@ -31,16 +31,15 @@
   font-family:'Freemono','monospace';
   font-variant: small-caps;
   font-style: italic;
-  color: #f3a4a4;
+  color: #ffffff;
   font-weight: bolder;
 }
 
 .fecha-hora {
   font-size: 12px;
   font-family:'Freemono','monospace';
-  font-weight: bolder;
-  color: #2e2e2e;
+  color: #ffffff;
   position: absolute;
-  bottom: -10px;
+  bottom: -5px;
   right: 10px;
 }
