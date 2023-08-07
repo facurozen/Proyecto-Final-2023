@@ -48,6 +48,18 @@ app.get('/Visitas',async(req,res)=>{
     const visitas = await GeriatricoServices.getVisitas()
     res.status(200).send(visitas)
 })
+app.post('/NuevaVisita', async (req, res) => {
+    const visitas = await GeriatricoServices.nuevaVisita(
+        req.body.Nombre,
+        req.body.Fecha,
+        req.body.HoraDeLlegada,
+        req.body.HoraDeSalida,
+        req.body.Ocupado,
+        req.body.IdPaciente
+    );
+    res.status(200).send(visitas);
+});
+
 
 app.listen(port, () =>
 {

@@ -113,6 +113,25 @@ class GeriatricoServices{
             console.log(error);
         }
     }
+    static nuevaVisita = async (Nombre, Fecha, HoraDeLlegada, HoraDeSalida, Ocupado, IdPaciente) =>{
+        let returnEntity = null;
+        console.log('Estoy en: GeriatricoServices.nuevaVisita(Id)');
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .input("pNombre",sql.VarChar,Nombre)
+                                    .input("Fecha",sql.Date,Fecha)
+                                    .input("pHoraDeLlegada",sql.Time,HoraDeLlegada)
+                                    .input("pHoraDeSalida",sql.Time,HoraDeSalida)
+                                    .input("pOcupado",sql.Bit,Ocupado)
+                                    .input("pIdPaciente",sql.Int,IdPaciente)
+                                    .query('Insert into Visitas (Nombre,Fecha,HoraDeLlegada,HoraDeSalida,Ocupado,IdPaciente) values (@pNombre,@pFecha,@pHoraDeLlegada,@pHoraDeSalida,@pOcupado,@pIdPaciente)');
+            return result.recordsets[0];
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
 }
 
 export default GeriatricoServices
