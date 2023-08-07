@@ -1,16 +1,17 @@
 .Titulo-Fechas-relevantes {
-  width: 162px;
-  height: 13px;
-  font-family: Inter;
-  font-size: 16px;
-  font-weight: normal;
+  margin-top: 5%;
+  font-family:'Freemono','monospace';
+  font-size: 18px;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
+  font-variant: small-caps;
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
   color: #000;
 }
+
 .home-container {
   display: flex;
   flex-direction: column;
@@ -23,29 +24,42 @@
   margin-top: 14.5%;
   margin-bottom: 20px;
 }
-.menu{
-  width: 112px;
-  height: 94px;
-}
-
 .menu-semanal-rectangulo {
-  
-  background-color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
+  display: flex;
+  align-items: center;
   width: 361px;
   height: 117px;
   margin: 61px 14px 112px 15px;
-  padding: 10px 16px 10px 127px;
+  padding: 10px;
   border-radius: 20px;
-  background-color: #ded9d9;
+  background-color: #2e2e2e;
 }
 
-.menu-semanal-rectangulo h2 {
-  font-size: 24px;
+.menu {
+  width: 40%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden; 
+  
+}
+
+.menu img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.menu-text {
+  flex: 1;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family:'Freemono','monospace';
   font-weight: bold;
-}
-
-.menu-semanal-rectangulo p {
-  font-size: 16px;
+  font-variant: small-caps;
+  font-stretch: extra-expanded;
+  font-size: 25px;
+  color: #f7374a;
 }
