@@ -99,6 +99,20 @@ class GeriatricoServices{
             console.log(error);
         }
     }
+
+    static getVisitas = async () =>{
+        let returnEntity = null;
+        console.log('Estoy en: GeriatricoServices.getVisitas()');
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .query('SELECT * FROM Visitas V INNER JOIN Paciente P on V.IdPaciente = P.IdPaciente');
+            return result.recordsets[0];
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
 }
 
 export default GeriatricoServices

@@ -2,17 +2,9 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import logoPersona from '../images/jose.jpeg';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
-import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import Perfil from '../Perfil/Perfil';
 import Home from '../Home/Home';
-
-
+import Perfil from '../Perfil/Perfil';
+import AgendaVisitas from '../AgendaVisitas/AgendaVisitas'
 
 function App() {
   const [medicamentoATomar, setMedicamentosATomar] = useState([]);
@@ -20,6 +12,7 @@ function App() {
   const [informe, setInforme] = useState([]);
   const [kinesiologia, setKinesiologia] = useState([]);
   const [fechasRelevantes, setFechasRelevantes] = useState([]);
+  const [visitas, setVisitas] = useState([]);
   const [value, setValue] = React.useState(0);
 
   useEffect(() => {
@@ -74,12 +67,25 @@ function App() {
     }
     obtenerFechasRelevantes()
   }, []);
+
+  useEffect(() => {
+    const obtenerVisitas = async () => {
+      const url = 'http://localhost:5000/Visitas';
+      axios.get(url)
+        .then(res => {
+          setVisitas(res.data);
+        })
+    }
+    obtenerVisitas()
+  }, []);
+
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/perfil" element={<Perfil informe={informe} medicamentoATomar={medicamentoATomar} historiaClinica={historiaClinica} kinesiologia={kinesiologia} />} />
           <Route path="/home" element={<Home fechasRelevantes={fechasRelevantes} />}></Route>
+          <Route path="/agendaVisitas" element={<AgendaVisitas visitas = {visitas} />}></Route>
         </Routes>
       </BrowserRouter>{/*
       <BottomNavigation className="logos"

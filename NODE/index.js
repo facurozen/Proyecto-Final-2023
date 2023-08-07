@@ -44,6 +44,10 @@ app.get('/FechasRelevantes',async(req,res)=>{
     res.status(200).send(FechasRelevantes)
 })
 
+app.get('/Visitas',async(req,res)=>{
+    const visitas = await GeriatricoServices.getVisitas()
+    res.status(200).send(visitas)
+})
 
 app.listen(port, () =>
 {
