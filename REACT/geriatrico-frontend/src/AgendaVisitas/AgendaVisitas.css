@@ -85,4 +85,12 @@
     height: 50px
   }
   
+  .NoUnderlineLink {
+    text-decoration: none;
+    transition: text-decoration 0.2s ease-in-out; /* Transición suave */
+  }
+  
+  .NoUnderlineLink:hover {
+    text-decoration: underline;
+  }
   

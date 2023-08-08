@@ -59,8 +59,10 @@ app.post('/NuevaVisita', async (req, res) => {
     );
     res.status(200).send(visitas);
 });
-
-
+app.get('/FechasDisponibles',async(req,res)=>{
+    const visitas = await GeriatricoServices.getFechas()
+    res.status(200).send(visitas)
+})
 app.listen(port, () =>
 {
     console.log("escucho");

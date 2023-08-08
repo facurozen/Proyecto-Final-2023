@@ -113,6 +113,21 @@ class GeriatricoServices{
             console.log(error);
         }
     }
+    
+    static getFechas = async () =>{
+        let returnEntity = null;
+        console.log('Estoy en: GeriatricoServices.getFechasRelevantes()');
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .query('Select * from Visitas where Ocupado=True');
+            return result.recordsets[0];
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+    /*
     static nuevaVisita = async (Nombre, Fecha, HoraDeLlegada, HoraDeSalida, Ocupado, IdPaciente) =>{
         let returnEntity = null;
         console.log('Estoy en: GeriatricoServices.nuevaVisita(Id)');
@@ -131,7 +146,7 @@ class GeriatricoServices{
         catch(error){
             console.log(error);
         }
-    }
+    }*/
 }
 
 export default GeriatricoServices

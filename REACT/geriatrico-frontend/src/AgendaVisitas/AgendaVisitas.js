@@ -1,18 +1,23 @@
 import React from "react";
 import "./AgendaVisitas.css";
 import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function formatTime(timeString) {
   const date = new Date(timeString);
   date.setHours(date.getHours() + 3);
   const hours = date.getHours();
   const minutes = date.getMinutes();
-  return `${hours < 10 ? "0" : ""}${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
+  return `${hours < 10 ? "0" : ""}${hours}:${
+    minutes < 10 ? "0" : ""
+  }${minutes}`;
 }
 
 function AgendaVisitas({ visitas }) {
   const sortedVisitas = visitas.sort((a, b) => {
-    return formatTime(a.HoraDeLlegada).localeCompare(formatTime(b.HoraDeLlegada));
+    return formatTime(a.HoraDeLlegada).localeCompare(
+      formatTime(b.HoraDeLlegada)
+    );
   });
 
   const groupedVisitas = [];
@@ -24,7 +29,9 @@ function AgendaVisitas({ visitas }) {
     const currentSalida = formatTime(currentVisita.HoraDeSalida);
 
     const nextVisita = sortedVisitas[i + 1];
-    const nextLlegada = nextVisita ? formatTime(nextVisita.HoraDeLlegada) : null;
+    const nextLlegada = nextVisita
+      ? formatTime(nextVisita.HoraDeLlegada)
+      : null;
 
     currentGroup.push(currentVisita);
 
@@ -50,7 +57,9 @@ function AgendaVisitas({ visitas }) {
                 return (
                   <div className="Rectangle-9" key={innerIndex}>
                     <div className="TimeWrapper">
-                      <p className="Horarios">{formattedLlegada} - {formattedSalida}</p>
+                      <p className="Horarios">
+                        {formattedLlegada} - {formattedSalida}
+                      </p>
                     </div>
                     <h2 className="nombreVisita">{`Visita de ${vis.Nombre}`}</h2>
                   </div>
@@ -61,7 +70,9 @@ function AgendaVisitas({ visitas }) {
         ))}
       </Container>
       <div className="ButtonWrapper">
-        <button className="AgendarButton">Agendar visita</button>
+        <Link to="/calendario" className="AgendarButton NoUnderlineLink">
+          Agendar visita
+        </Link>
       </div>
     </>
   );
