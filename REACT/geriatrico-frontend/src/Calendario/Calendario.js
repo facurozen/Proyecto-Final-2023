@@ -1,51 +1,75 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import format from "date-fns/format";
+import axios from "axios";
 import isSameDay from "date-fns/isSameDay";
-import axios from "axios"; // Asegúrate de tener axios instalado
+import parseISO from "date-fns/parseISO";
 
 function Calendario() {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [occupiedDates, setOccupiedDates] = useState([]);
+  const [horasOcupadas, setHorasOcupadas] = useState([]);
   const [availableHours, setAvailableHours] = useState([]);
+  const [selectedHour, setSelectedHour] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [nombreApellido, setNombreApellido] = useState("");
 
   useEffect(() => {
-    fetchOccupiedDates(); // Cargar las fechas ocupadas inicialmente
+    obtenerHorasOcupadas();
   }, []);
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    fetchAvailableHours(date); // Llamada para obtener las horas disponibles
-  };
-
-  const isDateOccupied = (date) => {
-    return occupiedDates.some((occupiedDate) => isSameDay(occupiedDate, date));
-  };
-
-  const fetchOccupiedDates = async () => {
+  const obtenerHorasOcupadas = async () => {
     try {
-      const response = await axios.get("/FechasDisponibles"); // Cambia la URL a la correcta
-      const visitas = response.data;
-      const occupiedDates = visitas.map((visita) => new Date(visita.Fecha));
-      setOccupiedDates(occupiedDates);
+      const response = await axios.get("http://localhost:5000/FechasOcupadas");
+      setHorasOcupadas(response.data);
     } catch (error) {
       console.error("Error fetching occupied dates:", error);
     }
   };
 
+  const isDateOccupied = (date) => {
+    return horasOcupadas.some(
+      (occupiedDate) => isSameDay(parseISO(occupiedDate.Fecha), date)
+    );
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    fetchAvailableHours(date);
+  };
+
   const fetchAvailableHours = (date) => {
-    const hoursInDay = Array.from({ length: 9 }, (_, index) => index + 12);
-    const occupiedHours = occupiedDates
-      .filter((occupiedDate) => isSameDay(occupiedDate, date))
-      .map((occupiedDate) => occupiedDate.getHours());
+    const hoursInDay = [12, 13, 14, 15, 16, 17, 18, 19, 20];
+
+    const occupiedHours = horasOcupadas
+      .filter((occupiedDate) =>
+        isSameDay(parseISO(occupiedDate.Fecha), date)
+      )
+      .map((occupiedDate) => occupiedDate.HoraDeLlegada.getHours());
 
     const availableHours = hoursInDay.filter(
       (hour) => !occupiedHours.includes(hour)
     );
 
     setAvailableHours(availableHours);
+  };
+
+  const handleHourSelection = (hour) => {
+    setSelectedHour(hour);
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setSelectedHour(null);
+    setDialogOpen(false);
+    setNombreApellido("");
+  };
+
+  const handleReservar = () => {
+    // Aquí puedes implementar la lógica para reservar la hora con el nombre y apellido
+    console.log(`Reservaste la hora: ${selectedHour}:00 con nombre: ${nombreApellido}`);
+    handleDialogClose();
   };
 
   return (
@@ -67,19 +91,40 @@ function Calendario() {
           <Typography variant="h6" align="center" gutterBottom>
             Horas disponibles para el {format(selectedDate, "dd/MM/yyyy")}
           </Typography>
-          {availableHours.length === 0 ? (
-            <Typography variant="body1" align="center">
-              No hay horas disponibles para esta fecha.
-            </Typography>
-          ) : (
-            availableHours.map((hour) => (
-              <Typography variant="body1" align="center" key={hour}>
+          <Box display="flex" justifyContent="center" mt={2}>
+            {availableHours.map((hour) => (
+              <Button
+                variant="outlined"
+                color="secondary" // Cambia a color rojo
+                key={hour}
+                onClick={() => handleHourSelection(hour)}
+                sx={{ margin: 1 }} // Añade un poco de margen al botón
+              >
                 Hora: {hour}:00
-              </Typography>
-            ))
-          )}
+              </Button>
+            ))}
+          </Box>
         </Box>
       )}
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Reservar Hora</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="Nombre y Apellido"
+            fullWidth
+            value={nombreApellido}
+            onChange={(e) => setNombreApellido(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleReservar} color="primary">
+            Reservar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

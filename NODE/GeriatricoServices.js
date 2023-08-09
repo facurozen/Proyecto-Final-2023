@@ -120,7 +120,7 @@ class GeriatricoServices{
         try{
             let pool = await sql.connect(config);
             let result = await pool.request()
-                                    .query('Select * from Visitas where Ocupado=True');
+                                    .query('Select HoraDeLlegada,Fecha from Visitas where Ocupado=1');
             return result.recordsets[0];
         }
         catch(error){
