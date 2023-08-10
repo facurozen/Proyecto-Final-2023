@@ -127,26 +127,39 @@ class GeriatricoServices{
             console.log(error);
         }
     }
-    /*
-    static nuevaVisita = async (Nombre, Fecha, HoraDeLlegada, HoraDeSalida, Ocupado, IdPaciente) =>{
+    static nuevaVisita = async (Nombre, Fecha, HoraDeLlegada, Ocupado, IdPaciente) => {
         let returnEntity = null;
         console.log('Estoy en: GeriatricoServices.nuevaVisita(Id)');
-        try{
+        try {
             let pool = await sql.connect(config);
+    
+            const [hora, minuto, segundo] = HoraDeLlegada.split(':');
+            const formattedHoraDeLlegada = new Date(0, 0, 0, hora, minuto, segundo);
+    
             let result = await pool.request()
-                                    .input("pNombre",sql.VarChar,Nombre)
-                                    .input("Fecha",sql.Date,Fecha)
-                                    .input("pHoraDeLlegada",sql.Time,HoraDeLlegada)
-                                    .input("pHoraDeSalida",sql.Time,HoraDeSalida)
-                                    .input("pOcupado",sql.Bit,Ocupado)
-                                    .input("pIdPaciente",sql.Int,IdPaciente)
-                                    .query('Insert into Visitas (Nombre,Fecha,HoraDeLlegada,HoraDeSalida,Ocupado,IdPaciente) values (@pNombre,@pFecha,@pHoraDeLlegada,@pHoraDeSalida,@pOcupado,@pIdPaciente)');
+                .input("pNombre", sql.VarChar, Nombre)
+                .input("Fecha", sql.Date, Fecha)
+                .input("pHoraDeLlegada", sql.Time, formattedHoraDeLlegada)
+                .input("pOcupado", sql.Bit, Ocupado)
+                .input("pIdPaciente", sql.Int, IdPaciente)
+                .query('Insert into Visitas (Nombre,Fecha,HoraDeLlegada,Ocupado,IdPaciente) values (@pNombre,@Fecha,@pHoraDeLlegada,@pOcupado,@pIdPaciente)');            
             return result.recordsets[0];
-        }
-        catch(error){
+        } catch (error) {
             console.log(error);
         }
-    }*/
+    }
+    static deleteVisita = async (idVisita) => {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input("pIdVisita", sql.Int, idVisita)
+                .query('DELETE FROM Visitas WHERE Id = @pIdVisita');
+            return result.rowsAffected[0]; // Devuelve el número de filas afectadas por la eliminación
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
 }
 
 export default GeriatricoServices

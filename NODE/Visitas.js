@@ -3,7 +3,6 @@ class Visitas{
     Nombre;
     Fecha;
     HoraDeLlegada;
-    HoraDeSalida;
     Ocupado;
     IdPaciente;
 }

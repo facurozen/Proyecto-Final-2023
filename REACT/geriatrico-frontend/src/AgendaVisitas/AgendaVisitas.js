@@ -13,7 +13,7 @@ function formatTime(timeString) {
   }${minutes}`;
 }
 
-function AgendaVisitas({ visitas }) {
+function AgendaVisitas({ visitas, onDeleteVisita }) {
   const sortedVisitas = visitas.sort((a, b) => {
     return formatTime(a.HoraDeLlegada).localeCompare(
       formatTime(b.HoraDeLlegada)
@@ -26,7 +26,6 @@ function AgendaVisitas({ visitas }) {
   for (let i = 0; i < sortedVisitas.length; i++) {
     const currentVisita = sortedVisitas[i];
     const currentLlegada = formatTime(currentVisita.HoraDeLlegada);
-    const currentSalida = formatTime(currentVisita.HoraDeSalida);
 
     const nextVisita = sortedVisitas[i + 1];
     const nextLlegada = nextVisita
@@ -35,7 +34,7 @@ function AgendaVisitas({ visitas }) {
 
     currentGroup.push(currentVisita);
 
-    if (nextLlegada !== currentSalida) {
+    if (nextLlegada !== currentLlegada) {
       groupedVisitas.push(currentGroup);
       currentGroup = [];
     }
@@ -52,14 +51,11 @@ function AgendaVisitas({ visitas }) {
             <Col>
               {group.map((vis, innerIndex) => {
                 const formattedLlegada = formatTime(vis.HoraDeLlegada);
-                const formattedSalida = formatTime(vis.HoraDeSalida);
 
                 return (
                   <div className="Rectangle-9" key={innerIndex}>
                     <div className="TimeWrapper">
-                      <p className="Horarios">
-                        {formattedLlegada} - {formattedSalida}
-                      </p>
+                      <p className="Horarios">{formattedLlegada}</p>
                     </div>
                     <h2 className="nombreVisita">{`Visita de ${vis.Nombre}`}</h2>
                   </div>

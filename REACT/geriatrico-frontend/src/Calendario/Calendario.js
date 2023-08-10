@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { Box, Typography, Button, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  TextField,
+  MenuItem,
+  Backdrop,
+  Modal,
+} from "@mui/material";
 import format from "date-fns/format";
 import axios from "axios";
 import isSameDay from "date-fns/isSameDay";
 import parseISO from "date-fns/parseISO";
+import "./Calendario.css";
+import { Link } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function Calendario() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [horasOcupadas, setHorasOcupadas] = useState([]);
   const [availableHours, setAvailableHours] = useState([]);
   const [selectedHour, setSelectedHour] = useState(null);
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [nombreApellido, setNombreApellido] = useState("");
+  const [showReservationForm, setShowReservationForm] = useState(false);
 
   useEffect(() => {
     obtenerHorasOcupadas();
@@ -29,8 +40,8 @@ function Calendario() {
   };
 
   const isDateOccupied = (date) => {
-    return horasOcupadas.some(
-      (occupiedDate) => isSameDay(parseISO(occupiedDate.Fecha), date)
+    return horasOcupadas.some((occupiedDate) =>
+      isSameDay(parseISO(occupiedDate.Fecha), date)
     );
   };
 
@@ -43,9 +54,7 @@ function Calendario() {
     const hoursInDay = [12, 13, 14, 15, 16, 17, 18, 19, 20];
 
     const occupiedHours = horasOcupadas
-      .filter((occupiedDate) =>
-        isSameDay(parseISO(occupiedDate.Fecha), date)
-      )
+      .filter((occupiedDate) => isSameDay(parseISO(occupiedDate.Fecha), date))
       .map((occupiedDate) => occupiedDate.HoraDeLlegada.getHours());
 
     const availableHours = hoursInDay.filter(
@@ -55,25 +64,39 @@ function Calendario() {
     setAvailableHours(availableHours);
   };
 
-  const handleHourSelection = (hour) => {
-    setSelectedHour(hour);
-    setDialogOpen(true);
-  };
-
-  const handleDialogClose = () => {
-    setSelectedHour(null);
-    setDialogOpen(false);
-    setNombreApellido("");
+  const handleDateTouch = (date) => {
+    setSelectedDate(date);
+    fetchAvailableHours(date);
+    setShowReservationForm(true);
   };
 
   const handleReservar = () => {
-    // Aquí puedes implementar la lógica para reservar la hora con el nombre y apellido
-    console.log(`Reservaste la hora: ${selectedHour}:00 con nombre: ${nombreApellido}`);
-    handleDialogClose();
+    console.log(
+      `Agendaste la hora: ${selectedHour}:00 con nombre: ${nombreApellido}`
+    );
+    handleClose();
+  };
+
+  const handleClose = () => {
+    setShowReservationForm(false);
+    setNombreApellido("");
+    setSelectedHour(null);
   };
 
   return (
     <div className="calendario-container">
+      <Box display="flex" alignItems="center" mt={2} ml={2}>
+        <Link to="/agendaVisitas" style={{ color: "black" }}>
+          <ArrowBackIcon style={{ color: "black" }} />
+        </Link>
+        <Typography
+          variant="h6"
+          align="center"
+          gutterBottom
+          style={{ marginLeft: "8px", color: "black" }}
+        >
+        </Typography>
+      </Box>
       <Typography variant="h4" align="center" gutterBottom>
         Calendario de visitas
       </Typography>
@@ -81,50 +104,76 @@ function Calendario() {
         <Calendar
           value={selectedDate}
           onChange={handleDateChange}
+          onClickDay={handleDateTouch}
           tileClassName={({ date }) =>
             isDateOccupied(date) ? "occupied" : undefined
           }
         />
       </Box>
-      {selectedDate && (
-        <Box mt={2}>
-          <Typography variant="h6" align="center" gutterBottom>
-            Horas disponibles para el {format(selectedDate, "dd/MM/yyyy")}
-          </Typography>
-          <Box display="flex" justifyContent="center" mt={2}>
-            {availableHours.map((hour) => (
-              <Button
-                variant="outlined"
-                color="secondary" // Cambia a color rojo
-                key={hour}
-                onClick={() => handleHourSelection(hour)}
-                sx={{ margin: 1 }} // Añade un poco de margen al botón
+      <Modal
+        open={showReservationForm}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+          style: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
+        }}
+      >
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          height="100vh"
+        >
+          <Box width="80%" maxWidth="400px" p={2} bg="white" borderRadius="8px">
+            <Typography
+              align="center"
+              style={{
+                color: "black",
+                fontWeight: "bold",
+                fontSize: "20px",
+              }}
+            >
+              Agendar Visita
+            </Typography>
+            <Box mt={2}>
+              <TextField
+                label="Nombre y Apellido"
+                fullWidth
+                value={nombreApellido}
+                onChange={(e) => setNombreApellido(e.target.value)}
+              />
+            </Box>
+            <Box mt={2}>
+              <TextField
+                select
+                label="Seleccionar Hora"
+                fullWidth
+                value={selectedHour}
+                onChange={(e) => setSelectedHour(e.target.value)}
+                style={{ background: "white" }}
               >
-                Hora: {hour}:00
+                {availableHours.map((hour) => (
+                  <MenuItem key={hour} value={hour}>
+                    {hour}:00 Hs.
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
+            <Box mt={2} display="flex" justifyContent="center">
+              <Button
+                onClick={handleReservar}
+                color="primary"
+                variant="contained"
+              >
+                Agendar visita
               </Button>
-            ))}
+            </Box>
           </Box>
         </Box>
-      )}
-      <Dialog open={dialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>Reservar Hora</DialogTitle>
-        <DialogContent>
-          <TextField
-            label="Nombre y Apellido"
-            fullWidth
-            value={nombreApellido}
-            onChange={(e) => setNombreApellido(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={handleReservar} color="primary">
-            Reservar
-          </Button>
-        </DialogActions>
-      </Dialog>
+      </Modal>
     </div>
   );
 }
