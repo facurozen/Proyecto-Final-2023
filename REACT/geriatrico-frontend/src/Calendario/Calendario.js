@@ -70,11 +70,30 @@ function Calendario() {
     setShowReservationForm(true);
   };
 
-  const handleReservar = () => {
-    console.log(
-      `Agendaste la hora: ${selectedHour}:00 con nombre: ${nombreApellido}`
-    );
-    handleClose();
+  const handleReservar = async () => {
+    try {
+      if (selectedHour !== null) {
+        const selectedHourUTC = new Date(selectedDate);
+        selectedHourUTC.setUTCHours(selectedHour, 0, 0);
+        selectedHourUTC.setUTCMinutes(selectedHourUTC.getUTCMinutes()-256);
+        // Make a POST request to add a new visit
+        await axios.post('http://localhost:5000/NuevaVisita', {
+          Nombre: nombreApellido,
+          Fecha: selectedDate.toISOString().split('T')[0],
+          HoraDeLlegada: selectedHourUTC.toISOString().substr(11, 8),
+          Ocupado: '1',
+          IdPaciente: 1, // Replace with the actual patient ID
+        });
+  
+        // Fetch updated list of occupied dates
+        await obtenerHorasOcupadas();
+  
+        // Close the reservation form
+        handleClose();
+      }
+    } catch (error) {
+      console.error('Error adding visit:', error);
+    }
   };
 
   const handleClose = () => {
@@ -94,8 +113,7 @@ function Calendario() {
           align="center"
           gutterBottom
           style={{ marginLeft: "8px", color: "black" }}
-        >
-        </Typography>
+        ></Typography>
       </Box>
       <Typography variant="h4" align="center" gutterBottom>
         Calendario de visitas

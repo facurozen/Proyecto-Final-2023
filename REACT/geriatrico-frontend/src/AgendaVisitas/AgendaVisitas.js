@@ -5,19 +5,16 @@ import { Link } from "react-router-dom";
 
 function formatTime(timeString) {
   const date = new Date(timeString);
-  date.setHours(date.getHours() + 3);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  return `${hours < 10 ? "0" : ""}${hours}:${
-    minutes < 10 ? "0" : ""
-  }${minutes}`;
+  date.setUTCHours(date.getUTCHours()); 
+  const hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes();
+  return `${hours < 10 ? "0" : ""}${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
 }
+
 
 function AgendaVisitas({ visitas, onDeleteVisita }) {
   const sortedVisitas = visitas.sort((a, b) => {
-    return formatTime(a.HoraDeLlegada).localeCompare(
-      formatTime(b.HoraDeLlegada)
-    );
+    return formatTime(a.HoraDeLlegada).localeCompare(formatTime(b.HoraDeLlegada));
   });
 
   const groupedVisitas = [];
@@ -28,9 +25,7 @@ function AgendaVisitas({ visitas, onDeleteVisita }) {
     const currentLlegada = formatTime(currentVisita.HoraDeLlegada);
 
     const nextVisita = sortedVisitas[i + 1];
-    const nextLlegada = nextVisita
-      ? formatTime(nextVisita.HoraDeLlegada)
-      : null;
+    const nextLlegada = nextVisita ? formatTime(nextVisita.HoraDeLlegada) : null;
 
     currentGroup.push(currentVisita);
 
@@ -44,7 +39,7 @@ function AgendaVisitas({ visitas, onDeleteVisita }) {
     <>
       <span className="Agenda-de-visitas">Agenda de visitas</span>
       <hr />
-      <span className="Wed15-Septemper">Mier,15 Abril</span>
+      <span className="Wed15-Septemper">Mier, 15 Abril</span>
       <Container>
         {groupedVisitas.map((group, index) => (
           <Row key={index}>

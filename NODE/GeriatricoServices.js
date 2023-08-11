@@ -128,19 +128,20 @@ class GeriatricoServices{
         }
     }
     static nuevaVisita = async (Nombre, Fecha, HoraDeLlegada, Ocupado, IdPaciente) => {
-        let returnEntity = null;
-        console.log('Estoy en: GeriatricoServices.nuevaVisita(Id)');
         try {
             let pool = await sql.connect(config);
     
             const [hora, minuto, segundo] = HoraDeLlegada.split(':');
             const formattedHoraDeLlegada = new Date(0, 0, 0, hora, minuto, segundo);
     
+            // Convert the string "Ocupado" to a boolean
+            const isOcupado = Ocupado === "1";
+    
             let result = await pool.request()
                 .input("pNombre", sql.VarChar, Nombre)
                 .input("Fecha", sql.Date, Fecha)
                 .input("pHoraDeLlegada", sql.Time, formattedHoraDeLlegada)
-                .input("pOcupado", sql.Bit, Ocupado)
+                .input("pOcupado", sql.Bit, isOcupado) // Use the boolean value
                 .input("pIdPaciente", sql.Int, IdPaciente)
                 .query('Insert into Visitas (Nombre,Fecha,HoraDeLlegada,Ocupado,IdPaciente) values (@pNombre,@Fecha,@pHoraDeLlegada,@pOcupado,@pIdPaciente)');            
             return result.recordsets[0];
