@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import {
-  Box,
-  Typography,
-  Button,
-  TextField,
-  MenuItem,
-  Backdrop,
-  Modal,
-} from "@mui/material";
+import {Box, Typography, Button, TextField, MenuItem, Backdrop, Modal} from "@mui/material";
 import format from "date-fns/format";
 import axios from "axios";
 import isSameDay from "date-fns/isSameDay";
@@ -76,19 +68,16 @@ function Calendario() {
         const selectedHourUTC = new Date(selectedDate);
         selectedHourUTC.setUTCHours(selectedHour, 0, 0);
         selectedHourUTC.setUTCMinutes(selectedHourUTC.getUTCMinutes()-256);
-        // Make a POST request to add a new visit
         await axios.post('http://localhost:5000/NuevaVisita', {
           Nombre: nombreApellido,
           Fecha: selectedDate.toISOString().split('T')[0],
           HoraDeLlegada: selectedHourUTC.toISOString().substr(11, 8),
           Ocupado: '1',
-          IdPaciente: 1, // Replace with the actual patient ID
+          IdPaciente: 1, 
         });
   
-        // Fetch updated list of occupied dates
         await obtenerHorasOcupadas();
   
-        // Close the reservation form
         handleClose();
       }
     } catch (error) {

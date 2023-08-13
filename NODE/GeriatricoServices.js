@@ -113,7 +113,6 @@ class GeriatricoServices{
             console.log(error);
         }
     }
-    
     static getFechas = async () =>{
         let returnEntity = null;
         console.log('Estoy en: GeriatricoServices.getFechasRelevantes()');

@@ -6,6 +6,7 @@ import Home from "../Home/Home";
 import Perfil from "../Perfil/Perfil";
 import AgendaVisitas from "../AgendaVisitas/AgendaVisitas";
 import Calendario from "../Calendario/Calendario";
+import NavBar from "../NavBar/NavBar";
 
 function App() {
   const [medicamentoATomar, setMedicamentosATomar] = useState([]);
@@ -91,30 +92,19 @@ function App() {
             }
           />
           <Route
-            path="/home"
+            path="/"
             element={<Home fechasRelevantes={fechasRelevantes} />}
-          ></Route>
+          />
           <Route
             path="/agendaVisitas"
             element={<AgendaVisitas visitas={visitas} />}
-          ></Route>
-          <Route path="/calendario" element={<Calendario />}></Route>
+          />
+          <Route path="/calendario" element={<Calendario />} />
         </Routes>
+        <NavBar /> {/* Agrega el NavBar abajo de todo */}
       </BrowserRouter>
-      {/*
-      <BottomNavigation className="logos"
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      >
-        <BottomNavigationAction label="Home" icon={<HomeRoundedIcon />} />
-        <BottomNavigationAction label="Calendario" icon={<CalendarMonthRoundedIcon />} />
-        <BottomNavigationAction label="Visitas" icon={<PeopleRoundedIcon />} />
-        <BottomNavigationAction label="Perfil" icon={<PersonRoundedIcon />} />
-      </BottomNavigation>*/}
     </div>
+    
   );
 }
 

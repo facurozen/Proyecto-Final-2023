@@ -94,3 +94,33 @@
     text-decoration: underline;
   }
   
+  /* AgendaVisitas.css */
+
+.MonthNavigator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.ArrowCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.ArrowCircle:hover {
+  background-color: #aaa;
+}
+
+.SelectedDate {
+  font-weight: bold;
+  margin: 0 20px;
+}
