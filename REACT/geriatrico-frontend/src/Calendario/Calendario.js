@@ -25,11 +25,16 @@ function Calendario() {
   const obtenerHorasOcupadas = async () => {
     try {
       const response = await axios.get("http://localhost:5000/FechasOcupadas");
-      setHorasOcupadas(response.data);
+      const ocupadasParsed = response.data.map((occupiedDate) => ({
+        ...occupiedDate,
+        Fecha: parseISO(occupiedDate.Fecha), // Convertir a objeto de fecha
+      }));
+      setHorasOcupadas(ocupadasParsed);
     } catch (error) {
       console.error("Error fetching occupied dates:", error);
     }
   };
+  
 
   const isDateOccupied = (date) => {
     return horasOcupadas.some((occupiedDate) =>

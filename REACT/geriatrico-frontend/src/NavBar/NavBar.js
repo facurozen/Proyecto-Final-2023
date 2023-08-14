@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { Home, CalendarToday, EventNote, Person } from "@mui/icons-material";
+import "./NavBar.css"
 
 function NavBar() {
   return (
-    <BottomNavigation showLabels>
+    <BottomNavigation className="navBar1" showLabels>
       <BottomNavigationAction
         component={Link}
         to="/"
