@@ -2,12 +2,8 @@ import React, { useState } from "react";
 import "./AgendaVisitas.css";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { format, addDays } from "date-fns";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 function AgendaVisitas({ visitas, onDeleteVisita }) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
 
   function formatTime(timeString) {
     const date = new Date(timeString);
@@ -38,46 +34,32 @@ function AgendaVisitas({ visitas, onDeleteVisita }) {
     }
   }
 
-  const handlePrevDay = () => {
-    setSelectedDate(addDays(selectedDate, -1));
-  };
-
-  const handleNextDay = () => {
-    setSelectedDate(addDays(selectedDate, 1));
-  };
-
   return (
     <>
       <div className="Agenda-de-visitas">Agenda de visitas</div>
       <hr />
-      <div className="MonthNavigator">
-        <div className="ArrowCircle" onClick={handlePrevDay}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </div>
-        <span className="SelectedDate">{format(selectedDate, "dd MMMM yyyy")}</span>
-        <div className="ArrowCircle" onClick={handleNextDay}>
-          <FontAwesomeIcon icon={faArrowRight} />
-        </div>
-      </div>
       <Container>
-        {groupedVisitas.map((group, index) => (
-          <Row key={index}>
-            <Col>
-              {group.map((vis, innerIndex) => {
-                const formattedLlegada = formatTime(vis.HoraDeLlegada);
+        {/* Agrega un contenedor con altura máxima para las visitas */}
+        <div className="VisitasContainer">
+          {groupedVisitas.map((group, index) => (
+            <Row key={index}>
+              <Col>
+                {group.map((vis, innerIndex) => {
+                  const formattedLlegada = formatTime(vis.HoraDeLlegada);
 
-                return (
-                  <div className="Rectangle-9" key={innerIndex}>
-                    <div className="TimeWrapper">
-                      <p className="Horarios">{formattedLlegada}</p>
+                  return (
+                    <div className="Rectangle-9" key={innerIndex}>
+                      <div className="TimeWrapper">
+                        <p className="Horarios">{formattedLlegada}</p>
+                      </div>
+                      <h2 className="nombreVisita">{`Visita de ${vis.Nombre}`}</h2>
                     </div>
-                    <h2 className="nombreVisita">{`Visita de ${vis.Nombre}`}</h2>
-                  </div>
-                );
-              })}
-            </Col>
-          </Row>
-        ))}
+                  );
+                })}
+              </Col>
+            </Row>
+          ))}
+        </div>
       </Container>
       <div className="ButtonWrapper">
         <Link to="/calendario" className="AgendarButton NoUnderlineLink">

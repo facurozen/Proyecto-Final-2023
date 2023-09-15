@@ -4,5 +4,6 @@ class FechasRelevantes{
     Texto;
     Hora;
     Imagen;
+    Info;
 }
 export default FechasRelevantes;

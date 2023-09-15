@@ -124,3 +124,8 @@
   font-weight: bold;
   margin: 0 20px;
 }
+.VisitasContainer {
+  max-height: calc(100vh - 200px); /* Ajusta la altura máxima según sea necesario */
+  overflow-y: auto; /* Agrega desbordamiento vertical si es necesario */
+  padding-right: 15px; /* Añade un espacio para el scroll vertical */
+}

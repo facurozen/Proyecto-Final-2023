@@ -26,9 +26,9 @@
 }
 
 .fecha-texto {
-  margin-top: -12px; 
+  margin-top: -12px;
   font-size: 16px;
-  font-family:'Freemono','monospace';
+  font-family: "Freemono", "monospace";
   font-variant: small-caps;
   font-style: italic;
   color: #ffffff;
@@ -37,9 +37,37 @@
 
 .fecha-hora {
   font-size: 12px;
-  font-family:'Freemono','monospace';
+  font-family: "Freemono", "monospace";
   color: #ffffff;
   position: absolute;
   bottom: -5px;
   right: 10px;
+}
+
+.imagenFecha {
+  width: 350px;
+  height: auto;
+  padding-left: 10px;
+}
+.FechaModal{
+  font-weight: bolder;
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.24px;
+  text-align: left;
+  color: #f7374a;
+}
+.TituloModal{
+  font-weight: bolder;
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.24px;
+  text-align: left;
+  color: #f7374a;
 }
