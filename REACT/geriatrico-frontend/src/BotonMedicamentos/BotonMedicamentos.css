@@ -26,7 +26,7 @@
 .medicamentos-table {
   border: none;
 }
-/* Agregamos el estilo para alinear el título Hora con las horas en la tabla */
+
 .hora-cell {
   text-align: center;
 }
@@ -61,4 +61,9 @@
 .custom-control-label::before {
   border: 1px solid #000;
   background-color: #fff;
+}
+
+.modal-body {
+  max-height: 400px; 
+  overflow-y: auto;
 }
