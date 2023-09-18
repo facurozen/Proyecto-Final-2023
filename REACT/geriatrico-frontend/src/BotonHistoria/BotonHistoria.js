@@ -10,7 +10,6 @@ function BotonHistoria({ historiaClinica }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // Invierte el orden de la historia clínica para mostrarla de la más reciente a la más antigua
   const historiaClinicaInvertida = Array.isArray(historiaClinica) ? [...historiaClinica].reverse() : [];
 
   const renderHistoria = () => {
@@ -20,7 +19,7 @@ function BotonHistoria({ historiaClinica }) {
       const mes = fecha.getUTCMonth() + 1;
       const ano = fecha.getUTCFullYear();
       return (
-        <div className='fechas' key={hist.ID}> {/* Asegúrate de agregar una clave única */}
+        <div className='fechas' key={hist.ID}>
           <p className="textoHist"> {dia}/{mes}/{ano}: {hist.Texto}</p>
         </div>
       );

@@ -58,10 +58,10 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 46vh; /* La mitad superior de la pantalla */
+  height: 46vh; 
   background-color: #f7374a;
-  border-radius: 20px; /* Agrega bordes curvos */
-  z-index: -1; /* Envía el cuadrado al fondo */
+  border-radius: 20px; 
+  z-index: -1; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,7 +69,7 @@
 }
 
 .profile-image {
-  width: 100px; /* Ajusta el tamaño de la imagen */
+  width: 100px; 
   height: 100px;
   border-radius: 20%;
   object-fit: cover;

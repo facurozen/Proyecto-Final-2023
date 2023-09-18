@@ -11,13 +11,12 @@ function AgendaVisitas({ visitas, onDeleteVisita }) {
     return `${hours < 10 ? "0" : ""}${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
   }
 
-  // Ordena las visitas por fecha en orden descendente (de más reciente a más antigua)
   const sortedVisitas = [...visitas].sort((a, b) => new Date(b.Fecha) - new Date(a.Fecha));
 
   const groupedVisitas = {};
   sortedVisitas.forEach((visita) => {
-    const fecha = new Date(visita.Fecha); // Convierte la fecha a un objeto Date
-    const fechaStr = fecha.toISOString().split("T")[0]; // Obtiene la fecha en formato ISO
+    const fecha = new Date(visita.Fecha);
+    const fechaStr = fecha.toISOString().split("T")[0]; 
 
     if (!groupedVisitas[fechaStr]) {
       groupedVisitas[fechaStr] = [];

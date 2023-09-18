@@ -101,7 +101,7 @@ function App() {
           />
           <Route path="/calendario" element={<Calendario />} />
         </Routes>
-        <NavBar /> {/* Agrega el NavBar abajo de todo */}
+        <NavBar /> 
       </BrowserRouter>
     </div>
     

@@ -29,7 +29,6 @@ function BotonMedicamentos({ medicamentoATomar }) {
   const renderMedicamentos = () => {
     let currentDate = null;
 
-    // Ordenar medicamentos por fecha más reciente primero
     const sortedMedicamentos = [...medicamentoATomar].sort((a, b) => {
       const dateA = new Date(a.FechaHora);
       const dateB = new Date(b.FechaHora);

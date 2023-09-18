@@ -1,25 +1,21 @@
 import React, { useState } from "react";
 import "./Fecha.css";
-import { Modal, Button } from "react-bootstrap"; // Importa el Modal y Button de react-bootstrap
-import { color } from "@mui/system";
+import { Modal, Button } from "react-bootstrap"; 
 
 function Fecha({ fechasRelevantes }) {
-  const [selectedFecha, setSelectedFecha] = useState(null); // Estado para la fecha seleccionada
-  const [showModal, setShowModal] = useState(false); // Estado para controlar la apertura/cierre del modal
+  const [selectedFecha, setSelectedFecha] = useState(null); 
+  const [showModal, setShowModal] = useState(false); 
 
   const openModal = (fecha) => {
-    // Formatear la fecha en formato "dd-mm-yyyy"
     const date = new Date(fecha.Fecha);
     const formattedDate = `${date.getUTCDate()}-${date.getUTCMonth() + 1}-${date.getUTCFullYear()}`;
     
-    // Crear una copia de la fecha con el formato deseado
     const fechaConFormato = { ...fecha, Fecha: formattedDate };
     
     setSelectedFecha(fechaConFormato);
     setShowModal(true);
   };
 
-  // Función para cerrar el modal
   const closeModal = () => {
     setSelectedFecha(null);
     setShowModal(false);
@@ -45,7 +41,7 @@ function Fecha({ fechasRelevantes }) {
           <div
             className="fecha-cuadrado"
             key={fr.id}
-            onClick={() => openModal(fr)} // Manejar el clic en la fecha para abrir el modal
+            onClick={() => openModal(fr)} 
           >
             <p className="fecha-dia">
               {dia} de {mes}

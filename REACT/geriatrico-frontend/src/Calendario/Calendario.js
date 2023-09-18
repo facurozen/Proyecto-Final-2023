@@ -27,7 +27,7 @@ function Calendario() {
       const response = await axios.get("http://localhost:5000/FechasOcupadas");
       const ocupadasParsed = response.data.map((occupiedDate) => ({
         ...occupiedDate,
-        Fecha: parseISO(occupiedDate.Fecha), // Convertir a objeto de fecha
+        Fecha: parseISO(occupiedDate.Fecha),
       }));
       setHorasOcupadas(ocupadasParsed);
     } catch (error) {

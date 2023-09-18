@@ -40,7 +40,6 @@
   text-align: center;
 }
 
-/* Cambiamos el estilo del checkbox para mostrar un tick si está marcado y vacío si no lo está */
 .custom-control-input:checked ~ .custom-control-label::before {
   border-color: #000;
   background-color: #000;
