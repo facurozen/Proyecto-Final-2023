@@ -87,14 +87,12 @@
   
   .NoUnderlineLink {
     text-decoration: none;
-    transition: text-decoration 0.2s ease-in-out; /* Transición suave */
+    transition: text-decoration 0.2s ease-in-out; 
   }
   
   .NoUnderlineLink:hover {
     text-decoration: underline;
   }
-  
-  /* AgendaVisitas.css */
 
 .MonthNavigator {
   display: flex;
@@ -125,7 +123,14 @@
   margin: 0 20px;
 }
 .VisitasContainer {
-  max-height: calc(100vh - 200px); /* Ajusta la altura máxima según sea necesario */
-  overflow-y: auto; /* Agrega desbordamiento vertical si es necesario */
-  padding-right: 15px; /* Añade un espacio para el scroll vertical */
+  max-height: 400px; 
+  overflow-y: auto; 
+  padding-right: 15px; 
+}
+
+
+.FechaVisitas {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }

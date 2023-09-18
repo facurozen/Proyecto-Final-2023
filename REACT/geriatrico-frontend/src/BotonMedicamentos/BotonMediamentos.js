@@ -26,14 +26,19 @@ function BotonMedicamentos({ medicamentoATomar }) {
     }
   }, [scrollPosition]);
 
-
-
   const renderMedicamentos = () => {
     let currentDate = null;
 
+    // Ordenar medicamentos por fecha más reciente primero
+    const sortedMedicamentos = [...medicamentoATomar].sort((a, b) => {
+      const dateA = new Date(a.FechaHora);
+      const dateB = new Date(b.FechaHora);
+      return dateB - dateA;
+    });
+
     return (
       <tbody>
-        {medicamentoATomar.map((med) => {
+        {sortedMedicamentos.map((med) => {
           const fecha = new Date(med.FechaHora);
           const hora = fecha.toLocaleTimeString([], {
             hour: '2-digit',
@@ -102,10 +107,8 @@ function BotonMedicamentos({ medicamentoATomar }) {
         ref={modalRef}
       >
         <Modal.Header closeButton>
-          
         </Modal.Header>
         <Modal.Body>
-          
           <Table className="medicamentos-table">
             <thead>
               <tr>

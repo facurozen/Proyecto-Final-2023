@@ -4,44 +4,41 @@ import { Container, Row, Col } from "react-bootstrap";
 import Fecha from "../Fecha/Fecha";
 import logo from "../images/logo.png";
 import menu from "../images/comida.jpg";
-import { Modal, Typography, Button } from "@mui/material"; // Importa el Modal y otros componentes de @mui/material
+import { Modal, Typography, Button } from "@mui/material";
 
 function Home({ fechasRelevantes }) {
   const [currentPage, setCurrentPage] = useState(0);
-  const [selectedFecha, setSelectedFecha] = useState(null); // Estado para la fecha seleccionada
-  const [modalOpen, setModalOpen] = useState(false); // Estado para controlar la apertura/cierre del modal
+  const [selectedFecha, setSelectedFecha] = useState(null); 
+  const [modalOpen, setModalOpen] = useState(false); 
 
-  // Número de fechas a mostrar en cada página
   const itemsPerPage = 4;
 
-  // Calcular el índice de inicio y fin para la página actual
+
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  // Obtener las fechas relevantes para la página actual
+
   const visibleFechasRelevantes = fechasRelevantes.slice(startIndex, endIndex);
 
-  // Función para ir a la página siguiente
+
   const nextPage = () => {
     if (startIndex + itemsPerPage < fechasRelevantes.length) {
       setCurrentPage(currentPage + 1);
     }
   };
 
-  // Función para ir a la página anterior
+
   const prevPage = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
     }
   };
 
-  // Función para abrir el modal con la información de la fecha seleccionada
   const openModal = (fecha) => {
     setSelectedFecha(fecha);
     setModalOpen(true);
   };
 
-  // Función para cerrar el modal
   const closeModal = () => {
     setSelectedFecha(null);
     setModalOpen(false);
@@ -55,7 +52,7 @@ function Home({ fechasRelevantes }) {
         <Col>
           <Fecha
             fechasRelevantes={visibleFechasRelevantes}
-            onFechaClick={openModal} // Pasa la función para abrir el modal como prop
+            onFechaClick={openModal} 
           />
         </Col>
       </Row>
@@ -81,7 +78,6 @@ function Home({ fechasRelevantes }) {
         </div>
       </div>
 
-      {/* Modal para mostrar la información de la fecha */}
       <Modal open={modalOpen} onClose={closeModal}>
         <div className="modal-content">
           {selectedFecha && (
