@@ -92,7 +92,7 @@ class GeriatricoServices{
         try{
             let pool = await sql.connect(config);
             let result = await pool.request()
-                                    .query('Select * from FechasRelevantes order by Fecha Asc');
+                                    .query('Select * from FechasRelevantes order by Fecha Desc');
             return result.recordsets[0];
         }
         catch(error){

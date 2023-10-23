@@ -78,6 +78,7 @@ function App() {
 
   return (
     <div className="App">
+      <div className="content">
       <BrowserRouter>
         <Routes>
           <Route
@@ -101,8 +102,9 @@ function App() {
           />
           <Route path="/calendario" element={<Calendario />} />
         </Routes>
-        <NavBar /> 
-      </BrowserRouter>
+        <NavBar className="NavBar" />
+        </BrowserRouter>
+       </div>
     </div>
     
   );

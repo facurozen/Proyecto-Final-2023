@@ -33,6 +33,17 @@
   text-align: left;
   color: #000;
 }
+.textoKine2 {
+  margin: 10px 18px 23px 8px;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #777777;
+}
 .subTextoKine{
   margin-left: 8px;
   margin-bottom: 18px;

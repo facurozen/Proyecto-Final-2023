@@ -8,25 +8,22 @@ import { Modal, Typography, Button } from "@mui/material";
 
 function Home({ fechasRelevantes }) {
   const [currentPage, setCurrentPage] = useState(0);
-  const [selectedFecha, setSelectedFecha] = useState(null); 
-  const [modalOpen, setModalOpen] = useState(false); 
+  const [selectedFecha, setSelectedFecha] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
+  // Declarar itemsPerPage antes de su uso
   const itemsPerPage = 4;
-
 
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-
   const visibleFechasRelevantes = fechasRelevantes.slice(startIndex, endIndex);
-
 
   const nextPage = () => {
     if (startIndex + itemsPerPage < fechasRelevantes.length) {
       setCurrentPage(currentPage + 1);
     }
   };
-
 
   const prevPage = () => {
     if (currentPage > 0) {
@@ -50,22 +47,16 @@ function Home({ fechasRelevantes }) {
 
       <Row>
         <Col>
-          <Fecha
-            fechasRelevantes={visibleFechasRelevantes}
-            onFechaClick={openModal} 
-          />
+          <Fecha fechasRelevantes={visibleFechasRelevantes} onFechaClick={openModal} />
         </Col>
       </Row>
 
       <div className="pagination-buttons">
-        <button onClick={prevPage} disabled={currentPage === 0}>
-          &lt; 
+        <button onClick={nextPage} disabled={startIndex + itemsPerPage >= fechasRelevantes.length}>
+          &lt;
         </button>
-        <button
-          onClick={nextPage}
-          disabled={startIndex + itemsPerPage >= fechasRelevantes.length}
-        >
-           &gt;
+        <button onClick={prevPage}disabled={currentPage === 0} >
+          &gt;
         </button>
       </div>
 

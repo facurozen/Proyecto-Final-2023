@@ -22,13 +22,13 @@ function BotonKinesio({ kinesiologia }) {
         const anoHoy = fechaHoy.getUTCFullYear();
         return (
           <div key={index}>
-            <p className="textoKine">
-              Inicio de tratamiento: {diaInicio}/{mesInicio}/{anoInicio}
-            </p>
-            <p className="subTextoKine">{kine.Texto}</p>
             <p className="textoKine">Profesional a cargo: {kine.Medico}</p>
             <p className="textoKine">
-              Fecha de registro: {diaHoy}/{mesHoy}/{anoHoy}
+              Ultimo control: {diaHoy}/{mesHoy}/{anoHoy}
+            </p>
+            <p className="subTextoKine">{kine.Texto}</p>
+            <p className="textoKine2">
+              Inicio de tratamiento: {diaInicio}/{mesInicio}/{anoInicio}
             </p>
           </div>
         );
