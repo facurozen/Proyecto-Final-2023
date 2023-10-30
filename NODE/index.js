@@ -15,6 +15,11 @@ app.get("/MedicamentoATomar", async (req, res) => {
   res.status(200).send(datos);
 });
 
+app.get("/Medicamentos", async (req, res) => {
+  const datos = await GeriatricoServices.getAllMedicamentos();
+  res.status(200).send(datos);
+});
+
 app.get("/MedicamentoATomar/:Id", async (req, res) => {
   const MedicamentoATomar = await GeriatricoServices.getMedicamentoATomarById(
     req.params.Id
@@ -78,6 +83,185 @@ app.delete('/EliminarVisita/:idVisita', async (req, res) => {
         res.status(404).send(`No se encontró una visita con ID ${idVisita}.`);
     }
 });
+
+app.post('/NuevoMedicamento', async (req, res) => {
+  try {
+    const medicamentos = await GeriatricoServices.insertMedicamentos(
+      req.body.NombreMedicamento
+    );
+    res.status(200).send(medicamentos);
+  } catch (error) {
+    res.status(500).send("Error al agregar la visita.");
+  }
+});
+app.delete('/EliminarMedicamento/:IdMedicamento', async (req, res) => {
+  const IdMedicamento = req.params.IdMedicamento;
+  const rowsAffected = await GeriatricoServices.deleteMedicamentos(IdMedicamento);
+  if (rowsAffected > 0) {
+      res.status(200).send(`Medicamento con ID ${IdMedicamento} eliminado correctamente.`);
+  } else {
+      res.status(404).send(`No se encontró un medicamento con ID ${IdMedicamento}.`);
+  }
+});
+app.put('/EditarMedicamento/:IdMedicamento', async (req, res) => {
+  try {
+    const { IdMedicamento } = req.params; 
+    const { NombreMedicamento } = req.body; 
+    
+    const rowsAffected = await GeriatricoServices.updateMedicamentos({
+      IdMedicamento: IdMedicamento,
+      NombreMedicamento: NombreMedicamento,
+    });
+
+    if (rowsAffected > 0) {
+      res.status(200).json({ message: 'Medicamento actualizado' });
+    } else {
+      res.status(404).json({ error: 'No se encontró el medicamento o no se realizaron cambios' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Fallo el update' });
+  }
+});
+
+
+app.post('/NuevoMedicamentoXPaciente', async (req, res) => {
+  try {
+    const medicamentos = await GeriatricoServices.insertMedicamentoXPaciente(
+      req.body.TomoMedicacion,
+      req.body.IdMedicamento,
+      req.body.IdPaciente,
+      req.body.FechaHora
+    );
+    res.status(200).send(medicamentos);
+  } catch (error) {
+    res.status(500).send("Error ");
+  }
+});
+app.delete('/EliminarMedicamentoXPaciente/:Id', async (req, res) => {
+  const Id = req.params.Id;
+  const rowsAffected = await GeriatricoServices.deleteMedicamentoXPaciente(Id);
+  if (rowsAffected > 0) {
+      res.status(200).send(`Medicamento con ID ${Id} eliminado correctamente.`);
+  } else {
+      res.status(404).send(`No se encontró un medicamento con ID ${Id}.`);
+  }
+});
+app.put('/editarMedicamentoXPaciente',async(req,res)=>{
+  try{
+      await GeriatricoServices.updateMedicamentosXPaciente(req.body)
+      res.status(200).json({message:'Medicamento actualizado'});
+  }   catch (error){
+      console.error(error);
+      res.status(500).json({error:'Fallo el update'});
+  }
+})
+
+app.post('/NuevoFechasRelevantes', async (req, res) => {
+  try {
+    const fechasRelevantes = await GeriatricoServices.insertFechasRelevantes(
+      req.body.Fecha,
+      req.body.Texto,
+      req.body.Hora,
+      req.body.Imagen,
+      req.body.Info
+    );
+    res.status(200).send(fechasRelevantes);
+  } catch (error) {
+    res.status(500).send("Error ");
+  }
+});
+app.delete('/EliminarFechasRelevantes/:Id', async (req, res) => {
+  const Id = req.params.Id;
+  const rowsAffected = await GeriatricoServices.deleteFechasRelevantes(Id);
+  if (rowsAffected > 0) {
+      res.status(200).send(`Fechas con ID ${Id} eliminado correctamente.`);
+  } else {
+      res.status(404).send(`No se encontró una fecha con ID ${Id}.`);
+  }
+});
+app.put('/editarFechasRelevantes',async(req,res)=>{
+  try{
+      await GeriatricoServices.updateFechasRelevantes(req.body)
+      res.status(200).json({message:'Fecha actualizado'});
+  }   catch (error){
+      console.error(error);
+      res.status(500).json({error:'Fallo el update'});
+  }
+})
+
+app.post('/insertActividades', async (req, res) => {
+  try {
+    const Actividades = await GeriatricoServices.insertActividades(
+      req.body.Nombre
+    );
+    res.status(200).send(Actividades);
+  } catch (error) {
+    res.status(500).send("Error ");
+  }
+});
+app.delete('/deleteActividades/:Id', async (req, res) => {
+  const Id = req.params.Id;
+  const rowsAffected = await GeriatricoServices.deleteActividades(Id);
+  if (rowsAffected > 0) {
+      res.status(200).send(`Actividades con ID ${Id} eliminado correctamente.`);
+  } else {
+      res.status(404).send(`No se encontró una Act con ID ${Id}.`);
+  }
+});
+app.put('/editarActividades',async(req,res)=>{
+  try{
+      await GeriatricoServices.updateActividades(req.body)
+      res.status(200).json({message:'Act actualizado'});
+  }   catch (error){
+      console.error(error);
+      res.status(500).json({error:'Fallo el update'});
+  }
+})
+
+app.post('/insertActividadXPaciente', async (req, res) => {
+  try {
+    const Actividades = await GeriatricoServices.insertActividadXPaciente(
+      req.body.IdActividad,
+      req.body.IdPaciente
+    );
+    res.status(200).send(Actividades);
+  } catch (error) {
+    res.status(500).send("Error ");
+  }
+});
+app.delete('/deleteActividadXPaciente/:IdAct/:IdPac', async (req, res) => {
+  const IdAct = req.params.IdActividad;
+  const IdPac = req.params.IdPaciente;
+  const rowsAffected = await GeriatricoServices.deleteActividadXPaciente(IdAct,IdPac);
+  if (rowsAffected > 0) {
+      res.status(200).send(`Eliminado correctamente.`);
+  } else {
+      res.status(404).send(`No se encontró.`);
+  }
+});
+
+app.post('/insertFotos', async (req, res) => {
+  try {
+    const Fotos = await GeriatricoServices.insertFotos(
+      req.body.IdAct,
+      req.body.Url
+    );
+    res.status(200).send(Fotos);
+  } catch (error) {
+    res.status(500).send("Error");
+  }
+});
+app.delete('/deleteFotos/:Id', async (req, res) => {
+  const Id = req.params.Id;
+  const rowsAffected = await GeriatricoServices.deleteFotos(Id);
+  if (rowsAffected > 0) {
+      res.status(200).send(`Eliminado correctamente.`);
+  } else {
+      res.status(404).send(`No se encontró.`);
+  }
+});
+
 app.listen(port, () => {
   console.log("escucho");
 });

@@ -158,6 +158,241 @@ class GeriatricoServices{
             console.log(error);
         }
     }
+    static insertMedicamentos = async (NombreMedicamento) => {
+        try {
+            let pool = await sql.connect(config);
+    
+            let result = await pool.request()
+                .input("pNombreMedicamento", sql.VarChar, NombreMedicamento)
+                .query('Insert into Medicamentos (NombreMedicamento) values (@pNombreMedicamento)');            
+            return result.recordsets[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    static deleteMedicamentos = async (IdMedicamento) => {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input("pIdMedicamento", sql.Int, IdMedicamento)
+                .query('DELETE FROM Medicamentos WHERE IdMedicamento = @pIdMedicamento');
+            return result.rowsAffected[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    static updateMedicamentos = async (Medicamentos) => {
+        let rowsAffected = 0;
+        const { IdMedicamento, NombreMedicamento } = Medicamentos;
+        try {
+            const pool = await sql.connect(config);
+            const result = await pool.request()
+                .input('pIdMedicamento', sql.Int, IdMedicamento)
+                .input('pNombreMedicamento', sql.NVarChar, NombreMedicamento)
+                .query('UPDATE Medicamentos SET NombreMedicamento = @pNombreMedicamento WHERE IdMedicamento = @pIdMedicamento');
+            rowsAffected = result.rowsAffected[0];
+        } catch (error) {
+            console.error(error);
+        }
+        return rowsAffected;
+    }
+    
+    static insertMedicamentoXPaciente = async (TomoMedicacion,IdMedicamento,IdPaciente,FechaHora) => {
+        try {
+            let pool = await sql.connect(config);
+
+            let result = await pool.request()
+                .input("pFechaHora", sql.DateTime, FechaHora)
+                .input("pTomoMedicacion", sql.Bit, TomoMedicacion) 
+                .input("pIdMedicamento", sql.Int, IdMedicamento)
+                .input("pIdPaciente", sql.Int, IdPaciente)
+                .query('Insert into MedicamentosATomar (TomoMedicacion,IdMedicamento,IdPaciente,FechaHora) values (@pTomoMedicacion,@pIdMedicamento,@pIdPaciente,@pFechaHora)');            
+            return result.recordsets[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    static deleteMedicamentoXPaciente = async (Id) => {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input("pId", sql.Int, Id)
+                .query('DELETE FROM MedicamentosATomar WHERE Id = @pId');
+            return result.rowsAffected[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    static updateMedicamentosXPaciente = async (MedicamentosATomar) =>{
+        let rowsAffected = 0;
+        const{Id,TomoMedicacion,IdMedicamento, IdPaciente,FechaHora} = MedicamentosATomar;
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .input('pId',Id)
+                                    .input('pTomoMedicacion',TomoMedicacion)
+                                    .input('pIdMedicamento',IdMedicamento)
+                                    .input('pIdPaciente',IdPaciente)
+                                    .input('pFechaHora',FechaHora)
+                                    .query('UPDATE MedicamentoATomar set TomoMedicacion = @pTomoMedicacion, IdMedicamento = @pIdMedicamento, IdPaciente = @pIdPaciente, FechaHora = @pFechaHora  WHERE Id = @pId');
+            rowsAffected = result.rowsAffected;
+        }
+        catch(error){
+            console.log(error);
+        }
+        return rowsAffected;
+    }
+    static insertFechasRelevantes = async (Fecha,Texto,Hora,Imagen,Info) => {
+        try {
+            let pool = await sql.connect(config);
+            
+            let result = await pool.request()
+                .input("pFecha", sql.Date, Fecha)
+                .input("pTexto", sql.VarChar, Texto) 
+                .input("pHora", sql.Time, Hora)
+                .input("pImagen", sql.VarChar, Imagen)
+                .input("pInfo", sql.VarChar, Info)
+                .query('Insert into FechasRelevantes (Fecha,Texto,Hora,Imagen,Info) values (@pFecha,@pTexto,@pHora,@pImagen,@pInfo)');            
+            return result.recordsets[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    static deleteFechasRelevantes = async (Id) => {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input("pId", sql.Int, Id)
+                .query('DELETE FROM FechasRelevantes WHERE Id = @pId');
+            return result.rowsAffected[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    static updateFechasRelevantes = async (FechasRelevantes) =>{
+        let rowsAffected = 0;
+        const{Id,Fecha,Texto, Hora,Imagen,Info} = FechasRelevantes;
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .input('pId',Id)
+                                    .input('pFecha',Fecha)
+                                    .input('pTexto',Texto)
+                                    .input('pHora',Hora)
+                                    .input('pImagen',Imagen)
+                                    .input('pInfo',Info)
+                                    .query('UPDATE FechasRelevantes set Fecha = @pFecha, Texto = @pTexto, Hora = @pHora, Imagen = @pImagen, Info = @pInfo WHERE Id = @pId');
+            rowsAffected = result.rowsAffected;
+        }
+        catch(error){
+            console.log(error);
+        }
+        return rowsAffected;
+    }
+    static insertActividades = async (Nombre) => {
+        try {
+            let pool = await sql.connect(config);
+            
+            let result = await pool.request()
+                .input("pNombre", sql.VarChar, Nombre) 
+                .query('Insert into Actividades (Nombre) values (@pNombre)');            
+            return result.recordsets[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    static deleteActividades = async (Id) => {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input("pId", sql.Int, Id)
+                .query('DELETE FROM Actividades WHERE Id = @pId');
+            return result.rowsAffected[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    static updateActividades = async (Actividades) =>{
+        let rowsAffected = 0;
+        const{Id,Nombre} = Actividades;
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .input('pId',Id)
+                                    .input('pNombre',Nombre)
+                                    .query('UPDATE Actividades set Nombre = @pNombre WHERE Id = @pId');
+            rowsAffected = result.rowsAffected;
+        }
+        catch(error){
+            console.log(error);
+        }
+        return rowsAffected;
+    }
+    static insertActividadXPaciente = async (IdActividad,IdPaciente) => {
+        try {
+            let pool = await sql.connect(config);
+            
+            let result = await pool.request()
+                .input("pIdActividad", sql.Int, IdActividad)
+                .input("pIdPaciente", sql.Int, IdPaciente)
+                .query('Insert into ActividadXPaciente (IdActividad,IdPaciente) values (@pIdActividad,@pIdPaciente)');            
+            return result.recordsets[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    static deleteActividadXPaciente = async (IdActividad,IdPaciente) => {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input("pIdActividad", sql.Int, IdActividad)
+                .input("pIdPaciente", sql.Int, IdPaciente)
+                .query('DELETE FROM ActividadXPaciente WHERE IdActividad = @pIdActividad and IdPaciente = @pIdPaciente');
+            return result.rowsAffected[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    static insertFotos = async (IdAct,Url) => {
+        try {
+            let pool = await sql.connect(config);
+            
+            let result = await pool.request()
+                .input("pIdAct", sql.Int, IdAct)
+                .input("pUrl", sql.VarChar, Url)
+                .query('Insert into Fotos (IdAct,Url) values (@pIdAct,@pUrl)');  
+            return result.recordsets[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    static deleteFotos = async (Id) => {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input("pId", sql.Int, Id)
+                .query('DELETE FROM Fotos WHERE Id = @pId');
+            return result.rowsAffected[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    static getAllMedicamentos = async () =>{
+        let returnEntity = null;
+        console.log('Estoy en: GeriatricoServices.getAll()');
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .query('Select * from Medicamentos');
+            return result.recordsets[0];
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
     
 }
 
