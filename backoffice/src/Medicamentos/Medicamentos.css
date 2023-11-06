@@ -1,0 +1,28 @@
+.med-container {
+  padding: 20px;
+}
+
+.med-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.med-form .med-input {
+  flex: 1;
+  max-width: 200px; /* Ajusta el ancho a tu preferencia */
+}
+
+.med-btn {
+  display: flex;
+  gap: 10px;
+  align-items:first baseline;
+}
+
+.med-btn button {
+  width: 100px; /* Ajusta el ancho a tu preferencia */
+}
+
+.med-action-btns button {
+  margin-right: 10px;
+}
