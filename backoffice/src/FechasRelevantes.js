@@ -1,105 +1,186 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { Table, Button, Form, Row, Col } from 'react-bootstrap';
+import './Medicamentos/Medicamentos.css';
 function FechasRelevantes() {
   const [fechasRelevantes, setFechasRelevantes] = useState([]);
-  const [nuevaFecha, setNuevaFecha] = useState({
+  const [nuevaFechaRelevante, setNuevaFechaRelevante] = useState({
     Fecha: '',
     Texto: '',
     Hora: '',
     Imagen: '',
     Info: '',
   });
+  const [fechaModificada, setFechaModificada] = useState(null);
+
+  const obtenerFechas = async () => {
+    const url = "http://localhost:5000/FechasRelevantes";
+    const result = await axios.get(url);
+    setFechasRelevantes(result.data);
+  };
 
   useEffect(() => {
-    const obtenerFechasRelevantes = async () => {
-      const url = "http://localhost:5000/FechasRelevantes";
-      axios.get(url).then((res) => {
-        setFechasRelevantes(res.data);
-      });
-    };
-    obtenerFechasRelevantes();
+    obtenerFechas();
   }, []);
 
-  const agregarFechaRelevante = () => {
-    // Verifica que los campos requeridos estén llenos
-    if (nuevaFecha.Fecha && nuevaFecha.Texto && nuevaFecha.Hora && nuevaFecha.Imagen) {
-      // Envía la nueva fecha al servidor y, después de la confirmación exitosa, agrega la fecha a la lista
+  const agregarFecha = async () => {
+    if (nuevaFechaRelevante.Fecha && nuevaFechaRelevante.Texto && nuevaFechaRelevante.Hora && nuevaFechaRelevante.Imagen) {
       const url = "http://localhost:5000/NuevoFechasRelevantes";
-      axios.post(url, nuevaFecha).then((res) => {
-        if (res.status === 200) {
-          setFechasRelevantes([...fechasRelevantes, { Id: res.data.Id, ...nuevaFecha }]);
-          // Reinicia los campos del formulario
-          setNuevaFecha({
-            Fecha: '',
-            Texto: '',
-            Hora: '',
-            Imagen: '',
-            Info: '',
-          });
-        }
+      await axios.post(url, nuevaFechaRelevante);
+      obtenerFechas();
+      setNuevaFechaRelevante({
+        Fecha: '',
+        Texto: '',
+        Hora: '',
+        Imagen: '',
+        Info: '',
       });
     }
   };
 
-  const eliminarFechaRelevante = (id) => {
-    // Envía la solicitud para eliminar la fecha al servidor y, después de la confirmación exitosa, quítala de la lista
+  const eliminarFechasRelevantes = async (id) => {
     const url = `http://localhost:5000/EliminarFechasRelevantes/${id}`;
-    axios.delete(url).then((res) => {
-      if (res.status === 200) {
-        setFechasRelevantes(fechasRelevantes.filter((fecha) => fecha.Id !== id));
-      }
-    });
+    await axios.delete(url);
+    obtenerFechas();
+  };
+
+  const modificarFecha = async () => {
+    if (fechaModificada) {
+      const url = `http://localhost:5000/EditarFechasRelevantes/${fechaModificada.Id}`;
+      await axios.put(url, { nombreFecha: fechaModificada.nombreFecha });
+      obtenerFechas();
+      setFechaModificada(null);
+    }
   };
 
   return (
     <div>
-      <h2>Fechas Relevantes</h2>
-      <ul>
-        {fechasRelevantes.map((item) => (
-          <li key={item.Id}>
-            {item.Texto}
-            <button onClick={() => eliminarFechaRelevante(item.Id)}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
-      <div>
-        <form>
-          <input
+      <h3>Fechas Relevantes</h3>
+      <Row>
+        <Col>
+          <Form.Control
             type="date"
-            value={nuevaFecha.Fecha}
-            onChange={(e) => setNuevaFecha({ ...nuevaFecha, Fecha: e.target.value })}
-            required
+            value={nuevaFechaRelevante.Fecha}
+            onChange={(e) => setNuevaFechaRelevante({ ...nuevaFechaRelevante, Fecha: e.target.value })}
           />
-          <input
+        </Col>
+        <Col>
+          <Form.Control
             type="text"
-            value={nuevaFecha.Texto}
-            onChange={(e) => setNuevaFecha({ ...nuevaFecha, Texto: e.target.value })}
+            value={nuevaFechaRelevante.Texto}
+            onChange={(e) => setNuevaFechaRelevante({ ...nuevaFechaRelevante, Texto: e.target.value })}
             placeholder="Texto"
-            required
           />
-          <input
+        </Col>
+        <Col>
+          <Form.Control
             type="time"
-            value={nuevaFecha.Hora}
-            onChange={(e) => setNuevaFecha({ ...nuevaFecha, Hora: e.target.value })}
-            required
+            value={nuevaFechaRelevante.Hora}
+            onChange={(e) => setNuevaFechaRelevante({ ...nuevaFechaRelevante, Hora: e.target.value })}
           />
-          <input
+        </Col>
+        <Col>
+          <Form.Control
             type="url"
-            value={nuevaFecha.Imagen}
-            onChange={(e) => setNuevaFecha({ ...nuevaFecha, Imagen: e.target.value })}
-            placeholder="URL de la Imagen"
-            required
+            value={nuevaFechaRelevante.Imagen}
+            onChange={(e) => setNuevaFechaRelevante({ ...nuevaFechaRelevante, Imagen: e.target.value })}
           />
-          <input
+        </Col>
+        <Col>
+          <Form.Control
             type="text"
-            value={nuevaFecha.Info}
-            onChange={(e) => setNuevaFecha({ ...nuevaFecha, Info: e.target.value })}
-            placeholder="Información Adicional"
+            value={nuevaFechaRelevante.Info}
+            onChange={(e) => setNuevaFechaRelevante({ ...nuevaFechaRelevante, Info: e.target.value })}
+            placeholder="Información"
           />
-          <button type="button" onClick={agregarFechaRelevante}>Agregar Fecha</button>
-        </form>
-      </div>
+        </Col>
+        <Col>
+          <Button variant="primary" onClick={agregarFecha}>Agregar</Button>
+        </Col>
+      </Row>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Texto</th>
+            <th>Hora</th>
+            <th>Imagen</th>
+            <th>Información</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {fechasRelevantes.map((fecha) => (
+            <tr key={fecha.Id}>
+              <td>
+                {fechaModificada && fechaModificada.Id === fecha.Id ? (
+                  <Form.Control
+                    type="date"
+                    value={fechaModificada.Fecha}
+                    onChange={(e) => setFechaModificada({ ...fechaModificada, Fecha: e.target.value })}
+                  />
+                ) : (
+                  fecha.Fecha
+                )}
+              </td>
+              <td>
+                {fechaModificada && fechaModificada.Id === fecha.Id ? (
+                  <Form.Control
+                    type="text"
+                    value={fechaModificada.Texto}
+                    onChange={(e) => setFechaModificada({ ...fechaModificada, Texto: e.target.value })}
+                  />
+                ) : (
+                  fecha.Texto
+                )}
+              </td>
+              <td>
+                {fechaModificada && fechaModificada.Id === fecha.Id ? (
+                  <Form.Control
+                    type="time"
+                    value={fechaModificada.Hora}
+                    onChange={(e) => setFechaModificada({ ...fechaModificada, Hora: e.target.value })}
+                  />
+                ) : (
+                  fecha.Hora
+                )}
+              </td>
+              <td>
+                {fechaModificada && fechaModificada.Id === fecha.Id ? (
+                  <Form.Control
+                    type="url"
+                    value={fechaModificada.Imagen}
+                    onChange={(e) => setFechaModificada({ ...fechaModificada, Imagen: e.target.value })}
+                  />
+                ) : (
+                  <a href={fecha.Imagen} target="_blank" rel="noopener noreferrer">Ver Imagen</a>
+                )}
+              </td>
+              <td>
+                {fechaModificada && fechaModificada.Id === fecha.Id ? (
+                  <Form.Control
+                    type="text"
+                    value={fechaModificada.Info}
+                    onChange={(e) => setFechaModificada({ ...fechaModificada, Info: e.target.value })}
+                  />
+                ) : (
+                  fecha.Info
+                )}
+              </td>
+              <td>
+                {fechaModificada ? (
+                  <Button variant="success" onClick={modificarFecha}>Guardar Cambios</Button>
+                ) : (
+                  <div>
+                    <Button variant="primary" onClick={() => setFechaModificada(fecha)}>Editar</Button>
+                    <Button variant="danger" onClick={() => eliminarFechasRelevantes(fecha.Id)}>Eliminar</Button>
+                  </div>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 }

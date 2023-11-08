@@ -270,26 +270,25 @@ class GeriatricoServices{
             console.log(error);
         }
     }
-    static updateFechasRelevantes = async (FechasRelevantes) =>{
+    static updateFechasRelevantes = async (id, fechasRelevantes) => {
         let rowsAffected = 0;
-        const{Id,Fecha,Texto, Hora,Imagen,Info} = FechasRelevantes;
-        try{
-            let pool = await sql.connect(config);
-            let result = await pool.request()
-                                    .input('pId',Id)
-                                    .input('pFecha',Fecha)
-                                    .input('pTexto',Texto)
-                                    .input('pHora',Hora)
-                                    .input('pImagen',Imagen)
-                                    .input('pInfo',Info)
-                                    .query('UPDATE FechasRelevantes set Fecha = @pFecha, Texto = @pTexto, Hora = @pHora, Imagen = @pImagen, Info = @pInfo WHERE Id = @pId');
-            rowsAffected = result.rowsAffected;
-        }
-        catch(error){
-            console.log(error);
+        const { Fecha, Texto, Hora, Imagen, Info } = fechasRelevantes;
+        try {
+          let pool = await sql.connect(config);
+          let result = await pool.request()
+            .input('pId', id)
+            .input('pFecha', Fecha)
+            .input('pTexto', Texto)
+            .input('pHora', Hora)
+            .input('pImagen', Imagen)
+            .input('pInfo', Info)
+            .query('UPDATE FechasRelevantes SET Fecha = @pFecha, Texto = @pTexto, Hora = @pHora, Imagen = @pImagen, Info = @pInfo WHERE Id = @pId');
+          rowsAffected = result.rowsAffected[0];
+        } catch (error) {
+          console.log(error);
         }
         return rowsAffected;
-    }
+      };
     static insertActividades = async (Nombre) => {
         try {
             let pool = await sql.connect(config);
@@ -386,6 +385,19 @@ class GeriatricoServices{
             let pool = await sql.connect(config);
             let result = await pool.request()
                                     .query('Select * from Medicamentos');
+            return result.recordsets[0];
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+    static getAllActividades = async () =>{
+        let returnEntity = null;
+        console.log('Estoy en: GeriatricoServices.getAll()');
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .query('Select * from Actividades');
             return result.recordsets[0];
         }
         catch(error){
