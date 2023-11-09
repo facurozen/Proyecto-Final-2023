@@ -48,8 +48,12 @@ app.get("/Kinesiologia/:Id", async (req, res) => {
   res.status(200).send(Kinesiologia);
 });
 app.get("/FechasRelevantes", async (req, res) => {
-  const FechasRelevantes = await GeriatricoServices.getFechasRelevantes();
+  const FechasRelevantes = await GeriatricoServices.getFechasRelevantes(req.params.Id);
   res.status(200).send(FechasRelevantes);
+});
+app.get("/Actividades", async (req, res) => {
+  const Actividades = await GeriatricoServices.getAllActividades(req.params.Id);
+  res.status(200).send(Actividades);
 });
 
 app.get("/Visitas", async (req, res) => {
@@ -264,6 +268,55 @@ app.delete('/deleteFotos/:Id', async (req, res) => {
   } else {
       res.status(404).send(`No se encontró.`);
   }
+});
+
+app.post('/NuevoMenu', async (req, res) => {
+  try {
+    const menu = await GeriatricoServices.insertMenu(
+      req.body.Fecha,
+      req.body.Plato
+    );
+    res.status(200).send(menu);
+  } catch (error) {
+    res.status(500).send("Error.");
+  }
+});
+
+app.delete('/EliminarMenu/:Id', async (req, res) => {
+  const Id = req.params.Id;
+  const rowsAffected = await GeriatricoServices.deleteMenu(Id);
+  if (rowsAffected > 0) {
+      res.status(200).send(` eliminado correctamente.`);
+  } else {
+      res.status(404).send(`No se encontró.`);
+  }
+});
+
+app.put('/EditarMenu/:Id', async (req, res) => {
+  try {
+    const { Id } = req.params; 
+    const { Fecha } = req.body; 
+    const { Plato } = req.body; 
+    
+    const rowsAffected = await GeriatricoServices.updateMenu({
+      Id: Id,
+      Fecha: Fecha,
+      Plato: Plato,
+    });
+
+    if (rowsAffected > 0) {
+      res.status(200).json({ message: ' actualizado' });
+    } else {
+      res.status(404).json({ error: 'no se realizaron cambios' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Fallo el update' });
+  }
+});
+app.get("/Menu", async (req, res) => {
+  const menu = await GeriatricoServices.getMenu();
+  res.status(200).send(menu);
 });
 
 app.listen(port, () => {

@@ -1,92 +1,92 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Button, Form, Row, Col } from 'react-bootstrap';
-import './Medicamentos.css';
 
-function Medicamentos() {
-  const [medicamentos, setMedicamentos] = useState([]);
-  const [nuevoMedicamento, setNuevoMedicamento] = useState('');
-  const [medicamentoModificado, setMedicamentoModificado] = useState(null);
+function Actividades() {
+  const [actividades, setActividades] = useState([]);
+  const [nuevoActividad, setNuevoActividad] = useState('');
+  const [actividadModificado, setActividadModificado] = useState(null);
 
-  const obtenerMedicamentos = async () => {
-    const url = "http://localhost:5000/Medicamentos";
+  const obtenerActividades = async () => {
+    const url = "http://localhost:5000/Actividades";
     const result = await axios.get(url);
-    setMedicamentos(result.data);
+    setActividades(result.data);
   };
 
   useEffect(() => {
-    obtenerMedicamentos();
+    obtenerActividades();
+    console.log(setActividades.data);
   }, []);
 
-  const agregarMedicamento = async () => {
-    if (nuevoMedicamento) {
-      const url = "http://localhost:5000/NuevoMedicamento";
-      await axios.post(url, { NombreMedicamento: nuevoMedicamento });
-      obtenerMedicamentos();
-      setNuevoMedicamento('');
+  const agregarActividad = async () => {
+    if (nuevoActividad) {
+      const url = "http://localhost:5000/insertActividades";
+      await axios.post(url, { NombreActividad: nuevoActividad });
+      obtenerActividades();
+      setNuevoActividad('');
     }
   };
 
-  const eliminarMedicamento = async (idMedicamento) => {
-    const url = `http://localhost:5000/EliminarMedicamento/${idMedicamento}`;
+  const eliminarActividad = async (Id) => {
+    const url = `http://localhost:5000/deleteActividades/${Id}`;
     await axios.delete(url);
-    obtenerMedicamentos();
+    obtenerActividades();
   };
 
-  const modificarMedicamento = async () => {
-    if (medicamentoModificado) {
-      const url = `http://localhost:5000/EditarMedicamento/${medicamentoModificado.IdMedicamento}`;
-      await axios.put(url, { NombreMedicamento: medicamentoModificado.NombreMedicamento });
-      obtenerMedicamentos();
-      setMedicamentoModificado(null);
+  const modificarActividad = async () => {
+    if (actividadModificado) {
+      const url = `http://localhost:5000/editarActividades/${actividadModificado.Id}`;
+      await axios.put(url, { NombreActividad: actividadModificado.NombreActividad });
+      obtenerActividades();
+      setActividadModificado(null);
     }
   };
 
   return (
     <div className="med-container">
-      <h3>Lista de Medicamentos</h3>
+      <h3>Lista de Actividades</h3>
       <Row className="med-form">
         <Col>
           <Form.Control
             type="text"
-            value={nuevoMedicamento}
-            onChange={(e) => setNuevoMedicamento(e.target.value)}
-            placeholder="Nuevo Medicamento"
+            value={nuevoActividad}
+            onChange={(e) => setNuevoActividad(e.target.value)}
+            placeholder="Nueva Actividad"
             className="med-input"
           />
         </Col>
         <Col className="med-btn">
-          <Button variant="primary" onClick={agregarMedicamento}>Agregar Nuevo</Button>
+          <Button variant="primary" onClick={agregarActividad}>Agregar</Button>
         </Col>
       </Row>
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Nombre del Medicamento</th>
+            <th>Nombre de la actividad</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {medicamentos.map(medicamento => (
-            <tr key={medicamento.IdMedicamento}>
+          {actividades.map((actividad) => (
+            <tr key={actividad.Id}>
               <td>
-                {medicamentoModificado && medicamentoModificado.IdMedicamento === medicamento.IdMedicamento ? (
+                {actividadModificado && actividadModificado.Id === actividad.Id ? (
                   <Form.Control
                     type="text"
-                    value={medicamentoModificado.NombreMedicamento}
-                    onChange={(e) => setMedicamentoModificado({ ...medicamentoModificado, NombreMedicamento: e.target.value })}
+                    value={actividadModificado.NombreActividad}
+                    onChange={(e) => setActividadModificado({ ...actividadModificado, NombreActividad: e.target.value })}
                   />
                 ) : (
-                  medicamento.NombreMedicamento
+                  actividad.NombreActividad
                 )}
               </td>
               <td>
-                {medicamentoModificado ? (
-                  <Button variant="success" onClick={modificarMedicamento}>Guardar Cambios</Button>
+                {actividadModificado ? (
+                  <Button variant="success" onClick={modificarActividad}>Guardar Cambios</Button>
                 ) : (
                   <div className="med-action-btns">
-                    <Button variant="primary" onClick={() => setMedicamentoModificado(medicamento)}>Editar</Button>
-                    <Button variant="danger" onClick={() => eliminarMedicamento(medicamento.IdMedicamento)}>Eliminar</Button>
+                    <Button variant="primary" onClick={() => setActividadModificado(actividad)}>Editar</Button>
+                    <Button variant="danger" onClick={() => eliminarActividad(actividad.Id)}>Eliminar</Button>
                   </div>
                 )}
               </td>
@@ -98,4 +98,4 @@ function Medicamentos() {
   );
 }
 
-export default Medicamentos;
+export default Actividades;
