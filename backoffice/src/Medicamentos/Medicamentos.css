@@ -15,12 +15,11 @@
 
 .med-btn {
   display: flex;
-  gap: 10px;
   align-items:first baseline;
 }
 
 .med-btn button {
-  width: 100px; /* Ajusta el ancho a tu preferencia */
+  width: 200px; /* Ajusta el ancho a tu preferencia */
 }
 
 .med-action-btns button {

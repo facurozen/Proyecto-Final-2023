@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Button, Form, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Actividades() {
   const [actividades, setActividades] = useState([]);
-  const [nuevoActividad, setNuevoActividad] = useState('');
-  const [actividadModificado, setActividadModificado] = useState(null);
+  const [nuevaActividad, setNuevaActividad] = useState('');
+  const [actividadModificada, setActividadModificada] = useState(null);
 
   const obtenerActividades = async () => {
     const url = "http://localhost:5000/Actividades";
@@ -15,78 +17,83 @@ function Actividades() {
 
   useEffect(() => {
     obtenerActividades();
-    console.log(setActividades.data);
   }, []);
 
   const agregarActividad = async () => {
-    if (nuevoActividad) {
+    if (nuevaActividad) {
       const url = "http://localhost:5000/insertActividades";
-      await axios.post(url, { NombreActividad: nuevoActividad });
+      await axios.post(url, { Nombre: nuevaActividad });
       obtenerActividades();
-      setNuevoActividad('');
+      setNuevaActividad('');
     }
   };
 
-  const eliminarActividad = async (Id) => {
-    const url = `http://localhost:5000/deleteActividades/${Id}`;
+  const eliminarActividad = async (idActividad) => {
+    const url = `http://localhost:5000/deleteActividades/${idActividad}`;
     await axios.delete(url);
     obtenerActividades();
   };
 
   const modificarActividad = async () => {
-    if (actividadModificado) {
-      const url = `http://localhost:5000/editarActividades/${actividadModificado.Id}`;
-      await axios.put(url, { NombreActividad: actividadModificado.NombreActividad });
+    if (actividadModificada) {
+      const url = "http://localhost:5000/editarActividades";
+      await axios.put(url, { Id: actividadModificada.Id, Nombre: actividadModificada.Nombre });
       obtenerActividades();
-      setActividadModificado(null);
+      setActividadModificada(null);
     }
   };
 
   return (
-    <div className="med-container">
+    <div className="actividades-container">
       <h3>Lista de Actividades</h3>
-      <Row className="med-form">
+      <Row className="actividades-form">
         <Col>
           <Form.Control
             type="text"
-            value={nuevoActividad}
-            onChange={(e) => setNuevoActividad(e.target.value)}
+            value={nuevaActividad}
+            onChange={(e) => setNuevaActividad(e.target.value)}
             placeholder="Nueva Actividad"
-            className="med-input"
+            className="actividades-input"
           />
         </Col>
-        <Col className="med-btn">
-          <Button variant="primary" onClick={agregarActividad}>Agregar</Button>
+        <Col className="actividades-btn">
+          <Button variant="primary" onClick={agregarActividad}>Agregar Nueva</Button>
         </Col>
       </Row>
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Nombre de la actividad</th>
+            <th>Nombre de la Actividad</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {actividades.map((actividad) => (
+          {actividades.map(actividad => (
             <tr key={actividad.Id}>
               <td>
-                {actividadModificado && actividadModificado.Id === actividad.Id ? (
+                {actividadModificada && actividadModificada.Id === actividad.Id ? (
                   <Form.Control
                     type="text"
-                    value={actividadModificado.NombreActividad}
-                    onChange={(e) => setActividadModificado({ ...actividadModificado, NombreActividad: e.target.value })}
+                    value={actividadModificada.Nombre}
+                    onChange={(e) => setActividadModificada({ ...actividadModificada, Nombre: e.target.value })}
                   />
                 ) : (
-                  actividad.NombreActividad
+                  actividad.Nombre
                 )}
               </td>
               <td>
-                {actividadModificado ? (
-                  <Button variant="success" onClick={modificarActividad}>Guardar Cambios</Button>
+                {actividadModificada ? (
+                  <Button variant="success" onClick={modificarActividad}>
+                    <FontAwesomeIcon icon={faEdit} />
+                  </Button>
                 ) : (
-                  <div className="med-action-btns">
-                    <Button variant="primary" onClick={() => setActividadModificado(actividad)}>Editar</Button>
-                    <Button variant="danger" onClick={() => eliminarActividad(actividad.Id)}>Eliminar</Button>
+                  <div className="actividades-action-btns">
+                    <Button variant="primary" onClick={() => setActividadModificada(actividad)}>
+                      <FontAwesomeIcon icon={faEdit} />
+                    </Button>
+                    <Button variant="danger" onClick={() => eliminarActividad(actividad.Id)}>
+                      <FontAwesomeIcon icon={faTrashAlt} />
+                    </Button>
                   </div>
                 )}
               </td>

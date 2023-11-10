@@ -51,10 +51,6 @@ app.get("/FechasRelevantes", async (req, res) => {
   const FechasRelevantes = await GeriatricoServices.getFechasRelevantes(req.params.Id);
   res.status(200).send(FechasRelevantes);
 });
-app.get("/Actividades", async (req, res) => {
-  const Actividades = await GeriatricoServices.getAllActividades(req.params.Id);
-  res.status(200).send(Actividades);
-});
 
 app.get("/Visitas", async (req, res) => {
   const visitas = await GeriatricoServices.getVisitas();
@@ -238,9 +234,8 @@ app.post('/insertActividadXPaciente', async (req, res) => {
     res.status(500).send("Error ");
   }
 });
-app.delete('/deleteActividadXPaciente/:IdAct/:IdPac', async (req, res) => {
+app.delete('/deleteActividadXPaciente/:IdAct', async (req, res) => {
   const IdAct = req.params.IdActividad;
-  const IdPac = req.params.IdPaciente;
   const rowsAffected = await GeriatricoServices.deleteActividadXPaciente(IdAct,IdPac);
   if (rowsAffected > 0) {
       res.status(200).send(`Eliminado correctamente.`);
@@ -315,8 +310,16 @@ app.put('/EditarMenu/:Id', async (req, res) => {
   }
 });
 app.get("/Menu", async (req, res) => {
-  const menu = await GeriatricoServices.getMenu();
-  res.status(200).send(menu);
+  const datos = await GeriatricoServices.getAllMenu();
+  res.status(200).send(datos);
+});
+app.get("/Actividades", async (req, res) => {
+  const datos = await GeriatricoServices.getAllActividades();
+  res.status(200).send(datos);
+});
+app.get("/ActividadXPaciente", async (req, res) => {
+  const datos = await GeriatricoServices.getAllActXPac();
+  res.status(200).send(datos);
 });
 
 app.listen(port, () => {

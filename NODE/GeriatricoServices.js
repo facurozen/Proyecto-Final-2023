@@ -354,6 +354,20 @@ class GeriatricoServices{
         }
     }
     
+    static getAllActXPac = async () =>{
+        let returnEntity = null;
+        console.log('Estoy en: GeriatricoServices.getAll()');
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .query('Select * from AcividadXPaciente');
+            return result.recordsets[0];
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+    
     static insertFotos = async (IdAct,Url) => {
         try {
             let pool = await sql.connect(config);
@@ -401,6 +415,61 @@ class GeriatricoServices{
             return result.recordsets[0];
         }
         catch(error){
+            console.log(error);
+        }
+    }
+    static getAllMenu = async () =>{
+        let returnEntity = null;
+        console.log('Estoy en: GeriatricoServices.getAll()');
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .query('Select * from Menu');
+            return result.recordsets[0];
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+    
+    static updateMenu = async (Menu) =>{
+        let rowsAffected = 0;
+        const{Id,Fecha,Plato} = Menu;
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .input('pId',Id)
+                                    .input('pFecha',Fecha)
+                                    .input('pPlato',Plato)
+                                    .query('UPDATE Menu set Fecha = @pFecha, Plato = @pPlato WHERE Id = @pId');
+            rowsAffected = result.rowsAffected;
+        }
+        catch(error){
+            console.log(error);
+        }
+        return rowsAffected;
+    }
+    static insertMenu = async (Fecha,Plato) => {
+        try {
+            let pool = await sql.connect(config);
+            
+            let result = await pool.request()
+                .input("pFecha", sql.Date, Fecha)
+                .input("pPlato", sql.VarChar, Plato)
+                .query('Insert into Menu (Fecha,Plato) values (@pFecha,@pPlato)');            
+            return result.recordsets[0];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    static deleteMenu = async (Id) => {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input("pId", sql.Int, Id)
+                .query('DELETE FROM Menu WHERE Id = @pId');
+            return result.rowsAffected[0];
+        } catch (error) {
             console.log(error);
         }
     }

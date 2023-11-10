@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Button, Form, Row, Col } from 'react-bootstrap';
 import './Medicamentos.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Medicamentos() {
   const [medicamentos, setMedicamentos] = useState([]);
@@ -85,8 +87,8 @@ function Medicamentos() {
                   <Button variant="success" onClick={modificarMedicamento}>Guardar Cambios</Button>
                 ) : (
                   <div className="med-action-btns">
-                    <Button variant="primary" onClick={() => setMedicamentoModificado(medicamento)}>Editar</Button>
-                    <Button variant="danger" onClick={() => eliminarMedicamento(medicamento.IdMedicamento)}>Eliminar</Button>
+                    <Button variant="primary" onClick={() => setMedicamentoModificado(medicamento)}><FontAwesomeIcon icon={faEdit} /></Button>
+                    <Button variant="danger" onClick={() => eliminarMedicamento(medicamento.IdMedicamento)}><FontAwesomeIcon icon={faTrashAlt} /></Button>
                   </div>
                 )}
               </td>
