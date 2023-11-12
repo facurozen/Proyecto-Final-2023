@@ -151,5 +151,19 @@ GO
 
 Acá, te mostraremos como es nuestro proyecto, y como usarlo.
 
+## Contacto
+
+**Agustín Brodsky** - 
+Gmail: agusbrodsky2006@gmail.com 
+Instagram: agusbrod_
+GitHub: 
+
+**Facundo Rozenbaum** - 
+Gmail: facurozen@gmail.com 
+Instagram: facurozen
+GitHub: https://github.com/facurozen
+
+
+
 
 
