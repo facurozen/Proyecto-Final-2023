@@ -147,3 +147,9 @@ GO
 
 28. Ahí, se nos abrirá la aplicación.
 
+## Uso
+
+Acá, te mostraremos como es nuestro proyecto, y como usarlo.
+
+
+
