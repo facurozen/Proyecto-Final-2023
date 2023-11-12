@@ -153,13 +153,13 @@ Acá, te mostraremos como es nuestro proyecto, y como usarlo.
 
 ## Contacto
 
-**Agustín Brodsky** - 
+**Thiago Baranczuk** - 
 
-Gmail: agusbrodsky2006@gmail.com 
+Gmail: thiagobaranczuk@gmail.com 
 
-Instagram: agusbrod_
+Instagram: thiagobaran
 
-GitHub: https://github.com/agusBrodsky 
+GitHub: https://github.com/thiagobaran 
 
 **Facundo Rozenbaum** - 
 
